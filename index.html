@@ -1,0 +1,8370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ARISE Campaign Dashboard</title>
+
+    <link
+        rel="icon"
+        href="assets/logo.png"
+    >
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
+
+        body {
+
+            background: #0d0d0d;
+
+            color: #ffffff;
+
+            font-family: 'Poppins', sans-serif;
+
+            overflow-x: hidden;
+
+            padding-left: 250px;
+
+        }
+
+
+        /* =========================================
+           GENERAL
+        ========================================= */
+
+        .title {
+
+            font-family: 'Cinzel', serif;
+
+        }
+
+
+        .gold {
+
+            color: #D4AF37;
+
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,.85),
+                    rgba(0,0,0,.90)
+                ),
+                url("assets/background.png");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-attachment: fixed;
+
+        }
+
+
+        /* =========================================
+           GLASS
+        ========================================= */
+
+        .glass {
+
+            background:
+                rgba(255,255,255,.05);
+
+            backdrop-filter:
+                blur(15px);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.35);
+
+            border-radius: 28px;
+
+        }
+
+
+        /* =========================================
+           STAT CARDS
+        ========================================= */
+
+        .statCard {
+
+            padding: 30px;
+
+            text-align: center;
+
+            transition: .35s;
+
+        }
+
+
+        .statCard:hover {
+
+            transform:
+                translateY(-8px);
+
+            border-color:
+                rgba(212,175,55,.25);
+
+        }
+
+
+        .number {
+
+            font-size: 2rem;
+
+            font-weight: 700;
+
+            margin-top: 10px;
+
+        }
+
+
+        .small {
+
+            color: #a5a5a5;
+
+        }
+
+
+        /* =========================================
+           CHURCH PROGRESS
+        ========================================= */
+
+        .churchContainer {
+
+            position: relative;
+
+            width: 100%;
+
+            max-width: 520px;
+
+            margin: 40px auto 0;
+
+        }
+
+
+        .churchBase {
+
+            width: 100%;
+
+            display: block;
+
+        }
+
+
+        .fillWrapper {
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: 0;
+
+            width: 100%;
+
+            height: 0%;
+
+            overflow: hidden;
+
+            transition:
+                height 2s ease;
+
+        }
+
+
+        .churchFill {
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: 0;
+
+            width: 100%;
+
+            display: block;
+
+        }
+
+
+        /* =========================================
+           PROGRESS CIRCLE
+        ========================================= */
+
+        .percentCircle {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%,-50%);
+
+            width: 150px;
+
+            height: 150px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(0,0,0,.72);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            backdrop-filter:
+                blur(10px);
+
+            border:
+                3px solid
+                #D4AF37;
+
+            box-shadow:
+                0 0 35px
+                rgba(212,175,55,.35);
+
+        }
+
+
+        .percentCircle h1 {
+
+            font-size: 42px;
+
+            color: #D4AF37;
+
+            font-weight: bold;
+
+        }
+
+
+        .percentCircle p {
+
+            font-size: 14px;
+
+            letter-spacing: 2px;
+
+            color: white;
+
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            padding: 16px;
+
+            border-bottom:
+                1px solid #333;
+
+            text-align: left;
+
+            white-space: nowrap;
+
+            color: #aaa;
+
+            font-size: 14px;
+
+        }
+
+
+        td {
+
+            padding: 16px;
+
+            border-bottom:
+                1px solid #252525;
+
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .ariseSidebar {
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            width: 250px;
+
+            height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(10,10,10,.99),
+                    rgba(18,18,18,.99)
+                );
+
+            border-right:
+                1px solid
+                rgba(212,175,55,.25);
+
+            z-index: 1000;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 25px 15px;
+
+            transition:
+                width .3s ease,
+                transform .3s ease;
+
+        }
+
+
+        /* =========================================
+           SIDEBAR LOGO
+        ========================================= */
+
+        .sidebarLogo {
+
+            padding-bottom: 25px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.08);
+
+        }
+
+
+        /* =========================================
+           SIDEBAR MENU
+        ========================================= */
+
+        .sidebarMenu {
+
+            margin-top: 25px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+
+        /* =========================================
+           SIDEBAR BUTTON
+        ========================================= */
+
+        .sideButton {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid transparent;
+
+            background: transparent;
+
+            color: #aaa;
+
+            text-align: left;
+
+            font-size: 15px;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+        }
+
+
+        .sideButton span:first-child {
+
+            font-size: 19px;
+
+        }
+
+
+        .sideButton:hover {
+
+            background:
+                rgba(212,175,55,.10);
+
+            color:
+                #D4AF37;
+
+        }
+
+
+        .sideButton.active {
+
+            background:
+                rgba(212,175,55,.15);
+
+            border:
+                1px solid
+                rgba(212,175,55,.35);
+
+            color:
+                #D4AF37;
+
+        }
+
+
+        /* =========================================
+           SIDEBAR BOTTOM
+        ========================================= */
+
+        .sidebarBottom {
+
+            margin-top: auto;
+
+            padding-top: 20px;
+
+        }
+
+
+        /* =========================================
+           COLLAPSE BUTTON
+        ========================================= */
+
+        .sidebarCollapse {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: -14px;
+
+            width: 30px;
+
+            height: 30px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                #D4AF37;
+
+            background:
+                #111;
+
+            color:
+                #D4AF37;
+
+            font-size: 22px;
+
+            line-height: 1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            z-index: 2000;
+
+            transition: .3s;
+
+        }
+
+
+        .sidebarCollapse:hover {
+
+            background:
+                #D4AF37;
+
+            color:
+                #000;
+
+        }
+
+
+        /* =========================================
+           COLLAPSED SIDEBAR
+        ========================================= */
+
+        .ariseSidebar.collapsed {
+
+            width: 75px;
+
+        }
+
+
+        .ariseSidebar.collapsed
+        .sidebarLogo img {
+
+            width: 45px;
+
+        }
+
+
+        .ariseSidebar.collapsed
+        .sidebarLogo .sidebarText {
+
+            display: none;
+
+        }
+
+
+        .ariseSidebar.collapsed
+        .sideButton {
+
+            justify-content: center;
+
+            padding-left: 5px;
+
+            padding-right: 5px;
+
+        }
+
+
+        .ariseSidebar.collapsed
+        .sideButton span:last-child {
+
+            display: none;
+
+        }
+
+
+        body.sidebarCollapsed {
+
+            padding-left: 75px;
+
+        }
+
+
+        .ariseSidebar.collapsed
+        .sidebarCollapse {
+
+            transform:
+                rotate(180deg);
+
+        }
+
+
+        /* =========================================
+           MOBILE BUTTON
+        ========================================= */
+
+        .sidebarToggle {
+
+            display: none;
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            body {
+
+                padding-left: 0;
+
+            }
+
+
+            .ariseSidebar {
+
+                transform:
+                    translateX(-100%);
+
+            }
+
+
+            .ariseSidebar.open {
+
+                transform:
+                    translateX(0);
+
+            }
+
+
+            .sidebarToggle {
+
+                display: block;
+
+                position: fixed;
+
+                top: 15px;
+
+                left: 15px;
+
+                z-index: 1100;
+
+                background:
+                    #D4AF37;
+
+                color:
+                    #000;
+
+                border: none;
+
+                border-radius: 10px;
+
+                padding: 10px 14px;
+
+                font-size: 20px;
+
+                cursor: pointer;
+
+            }
+
+
+            .sidebarCollapse {
+
+                display: none;
+
+            }
+
+
+            .percentCircle {
+
+                width: 120px;
+
+                height: 120px;
+
+            }
+
+
+            .percentCircle h1 {
+
+                font-size: 32px;
+
+            }
+
+        }
+
+
+        /* =========================================
+           PAGE ANIMATION
+        ========================================= */
+
+        .page {
+
+            animation:
+                pageFade .3s ease;
+
+        }
+
+
+        @keyframes pageFade {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(10px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =========================================
+           MEMBER PROGRESS BAR
+        ========================================= */
+
+        .memberProgress {
+
+            width: 100px;
+
+            height: 7px;
+
+            background:
+                #292929;
+
+            border-radius: 999px;
+
+            overflow: hidden;
+
+            display: inline-block;
+
+            vertical-align: middle;
+
+        }
+
+
+        .memberProgressFill {
+
+            height: 100%;
+
+            background:
+                #D4AF37;
+
+            border-radius: 999px;
+
+            transition:
+                width .8s ease;
+
+        }
+
+
+        /* =========================================
+           SCROLLBAR
+        ========================================= */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+            height: 8px;
+
+        }
+
+
+        ::-webkit-scrollbar-track {
+
+            background:
+                #111;
+
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background:
+                #444;
+
+            border-radius: 10px;
+
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background:
+                #D4AF37;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<section class="hero">
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside
+        id="ariseSidebar"
+        class="ariseSidebar"
+    >
+
+        <button
+            type="button"
+            class="sidebarCollapse"
+            onclick="toggleSidebarCollapse()"
+            title="Collapse sidebar"
+        >
+            ‹
+        </button>
+
+
+        <div class="sidebarLogo">
+
+            <img
+                src="assets/logo.png"
+                class="w-20 mx-auto"
+                alt="ARISE Logo"
+            >
+
+
+            <div
+                class="sidebarText text-center mt-3"
+            >
+
+                <div
+                    class="gold font-bold text-lg"
+                >
+                    ARISE
+                </div>
+
+
+                <div
+                    class="text-xs text-gray-400"
+                >
+                    Advancing NextGen Church
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIDEBAR MENU -->
+
+        <div class="sidebarMenu">
+
+
+            <button
+                type="button"
+                onclick="showPage('dashboard')"
+                class="sideButton active"
+                id="navDashboard"
+            >
+
+                <span>🏠</span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="showPage('members')"
+                class="sideButton"
+                id="navMembers"
+            >
+
+                <span>👤</span>
+
+                <span>Members</span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="showPage('cashier')"
+                class="sideButton"
+                id="navCashier"
+            >
+
+                <span>💰</span>
+
+                <span>Cashier</span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="showPage('reports')"
+                class="sideButton"
+                id="navReports"
+            >
+
+                <span>📊</span>
+
+                <span>Reports</span>
+
+            </button>
+
+
+        </div>
+
+
+        <div class="sidebarBottom">
+
+            <div
+                class="text-xs text-gray-600 text-center"
+            >
+                © 2026 ARISE Campaign
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button
+        type="button"
+        onclick="toggleSidebar()"
+        class="sidebarToggle"
+    >
+        ☰
+    </button>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main
+        class="max-w-7xl mx-auto px-6 py-10"
+    >
+
+
+        <!-- =====================================
+             DASHBOARD PAGE
+        ===================================== -->
+
+        <div
+            id="dashboardPage"
+            class="page"
+        >
+
+
+            <!-- HEADER -->
+
+            <div
+                class="flex justify-between items-center"
+            >
+
+                <a
+                    href="index.html"
+                    class="border border-yellow-500 text-yellow-400 px-5 py-2 rounded-full hover:bg-yellow-500 hover:text-black transition"
+                >
+                    ← Member Portal
+                </a>
+
+
+                <img
+                    src="assets/logo.png"
+                    class="w-24"
+                    alt="ARISE"
+                >
+
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <div
+                class="text-center mt-12"
+            >
+
+                <h1
+                    class="title text-5xl md:text-6xl gold"
+                >
+                    ARISE Campaign
+                </h1>
+
+
+                <p
+                    class="mt-6 text-xl text-gray-300"
+                >
+                    Building a Legacy of Faith for the Next Generation
+                </p>
+
+            </div>
+
+
+
+            <!-- CHURCH PROGRESS -->
+
+            <div
+                class="churchContainer"
+            >
+
+                <img
+                    src="assets/church-gray.png"
+                    class="churchBase"
+                    alt="Campaign Progress"
+                >
+
+
+                <div
+                    id="fillWrapper"
+                    class="fillWrapper"
+                >
+
+                    <img
+                        src="assets/church-gold.png"
+                        class="churchFill"
+                        alt=""
+                    >
+
+                </div>
+
+
+                <div
+                    class="percentCircle"
+                >
+
+                    <h1
+                        id="progressPercent"
+                    >
+                        0%
+                    </h1>
+
+
+                    <p>
+                        COMPLETE
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TOTAL CONTRIBUTION -->
+
+            <div
+                class="text-center mt-10"
+            >
+
+                <h2
+                    id="totalContribution"
+                    class="text-5xl font-bold gold"
+                >
+                    ₱0.00
+                </h2>
+
+
+                <p
+                    class="text-gray-400 mt-3"
+                >
+                    Total Contributions Received
+                </p>
+
+
+                <p class="mt-4">
+
+                    Goal:
+
+                    <span id="goal">
+                        ₱0.00
+                    </span>
+
+                </p>
+
+            </div>
+
+
+
+            <!-- STAT CARDS -->
+
+            <div
+                class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"
+            >
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div class="text-5xl">
+                        💰
+                    </div>
+
+
+                    <div
+                        id="cardContribution"
+                        class="number gold"
+                    >
+                        ₱0.00
+                    </div>
+
+
+                    <p class="small">
+                        Total Contributions
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div class="text-5xl">
+                        💛
+                    </div>
+
+
+                    <div
+                        id="cardPledged"
+                        class="number gold"
+                    >
+                        ₱0.00
+                    </div>
+
+
+                    <p class="small">
+                        Total Pledged
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div class="text-5xl">
+                        👥
+                    </div>
+
+
+                    <div
+                        id="cardFamilies"
+                        class="number"
+                    >
+                        0
+                    </div>
+
+
+                    <p class="small">
+                        Families Committed
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div class="text-5xl">
+                        🎯
+                    </div>
+
+
+                    <div
+                        id="cardRemaining"
+                        class="number text-red-400"
+                    >
+                        ₱0.00
+                    </div>
+
+
+                    <p class="small">
+                        Remaining Goal
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- MONTHLY CONTRIBUTIONS -->
+
+            <div
+                class="glass mt-12 p-8"
+            >
+
+                <div
+                    class="flex justify-between items-center mb-8"
+                >
+
+                    <h2
+                        class="title text-3xl gold"
+                    >
+                        Monthly Contributions
+                    </h2>
+
+
+                    <div
+                        class="text-right"
+                    >
+
+                        <p
+                            class="text-gray-400 text-sm"
+                        >
+                            Updated
+                        </p>
+
+
+                        <p
+                            id="lastUpdated"
+                            class="text-yellow-400 font-semibold"
+                        >
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="overflow-x-auto"
+                >
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Month
+                                </th>
+
+                                <th
+                                    class="text-right"
+                                >
+                                    Contribution
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="monthlyTable"
+                        >
+
+                            <tr>
+
+                                <td
+                                    colspan="2"
+                                    class="text-center text-gray-500 py-10"
+                                >
+                                    Loading campaign data...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CAMPAIGN SUMMARY -->
+
+            <div
+                class="grid md:grid-cols-2 gap-8 mt-12"
+            >
+
+
+                <div
+                    class="glass p-8"
+                >
+
+                    <h2
+                        class="title text-2xl gold mb-6"
+                    >
+                        Campaign Summary
+                    </h2>
+
+
+                    <div
+                        class="space-y-4"
+                    >
+
+
+                        <div
+                            class="flex justify-between"
+                        >
+
+                            <span>
+                                Campaign Goal
+                            </span>
+
+                            <strong id="summaryGoal">
+                                ₱0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="flex justify-between"
+                        >
+
+                            <span>
+                                Total Pledged
+                            </span>
+
+                            <strong id="summaryPledged">
+                                ₱0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="flex justify-between"
+                        >
+
+                            <span>
+                                Total Contributions
+                            </span>
+
+                            <strong id="summaryContribution">
+                                ₱0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="flex justify-between"
+                        >
+
+                            <span>
+                                Remaining Goal
+                            </span>
+
+                            <strong id="summaryRemaining">
+                                ₱0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="flex justify-between"
+                        >
+
+                            <span>
+                                Families
+                            </span>
+
+                            <strong id="summaryFamilies">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="glass p-8 flex flex-col justify-center items-center"
+                >
+
+                    <img
+                        src="assets/logo.png"
+                        class="w-28 mb-5"
+                        alt="ARISE"
+                    >
+
+
+                    <h2
+                        id="campaignName"
+                        class="title text-3xl gold text-center"
+                    >
+                        ARISE
+                    </h2>
+
+
+                    <p
+                        id="churchName"
+                        class="text-center text-gray-300 mt-3"
+                    >
+                        COG Dabubu Grande
+                    </p>
+
+
+                    <p
+                        class="mt-8 text-center text-gray-400 leading-7"
+                    >
+                        "Each gift is another step toward building a place where lives will be transformed for generations to come."
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- DASHBOARD FOOTER -->
+
+            <footer
+                class="text-center py-16"
+            >
+
+                <hr
+                    class="border-gray-800 mb-8"
+                >
+
+
+                <p
+                    class="text-gray-500"
+                >
+                    © 2026 ARISE Campaign
+                </p>
+
+
+                <p
+                    class="text-gray-600 mt-2"
+                >
+                    Advancing NextGen Church
+                </p>
+
+            </footer>
+
+
+        </div>
+        <!-- END DASHBOARD -->
+
+
+
+        <!-- =====================================
+             MEMBERS PAGE
+        ===================================== -->
+
+        <div
+            id="membersPage"
+            class="page"
+            style="display:none;"
+        >
+
+
+            <!-- PAGE HEADER -->
+
+            <div
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mt-6 mb-8"
+            >
+
+                <div>
+
+                    <h1
+                        class="title text-4xl gold"
+                    >
+                        👤 Member Management
+                    </h1>
+
+
+                    <p
+                        class="text-gray-400 mt-2"
+                    >
+                        Manage ARISE campaign members and their pledge information.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="bg-yellow-500 text-black px-6 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition"
+                    onclick="openNewMember()"
+                >
+                    + New Member
+                </button>
+
+            </div>
+
+
+
+            <!-- MEMBER SUMMARY -->
+
+            <div
+                class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+            >
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div
+                        class="flex items-center justify-between"
+                    >
+
+                        <div class="text-left">
+
+                            <p
+                                class="text-gray-400 text-sm"
+                            >
+                                Total Members
+                            </p>
+
+
+                            <h2
+                                id="memberTotalCount"
+                                class="text-3xl gold font-bold mt-2"
+                            >
+                                0
+                            </h2>
+
+                        </div>
+
+
+                        <div class="text-4xl">
+                            👥
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div
+                        class="flex items-center justify-between"
+                    >
+
+                        <div class="text-left">
+
+                            <p
+                                class="text-gray-400 text-sm"
+                            >
+                                Total Pledged
+                            </p>
+
+
+                            <h2
+                                id="memberTotalPledged"
+                                class="text-3xl gold font-bold mt-2"
+                            >
+                                ₱0.00
+                            </h2>
+
+                        </div>
+
+
+                        <div class="text-4xl">
+                            💛
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div
+                        class="flex items-center justify-between"
+                    >
+
+                        <div class="text-left">
+
+                            <p
+                                class="text-gray-400 text-sm"
+                            >
+                                Total Contributions
+                            </p>
+
+
+                            <h2
+                                id="memberTotalContributions"
+                                class="text-3xl gold font-bold mt-2"
+                            >
+                                ₱0.00
+                            </h2>
+
+                        </div>
+
+
+                        <div class="text-4xl">
+                            💰
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="glass statCard"
+                >
+
+                    <div
+                        class="flex items-center justify-between"
+                    >
+
+                        <div class="text-left">
+
+                            <p
+                                class="text-gray-400 text-sm"
+                            >
+                                Remaining Balance
+                            </p>
+
+
+                            <h2
+                                id="memberTotalRemaining"
+                                class="text-3xl text-red-400 font-bold mt-2"
+                            >
+                                ₱0.00
+                            </h2>
+
+                        </div>
+
+
+                        <div class="text-4xl">
+                            🎯
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- MEMBER LIST -->
+
+            <div
+                class="glass p-6 md:p-8"
+            >
+
+
+                <!-- SEARCH / FILTER -->
+
+                <div
+                    class="flex flex-col md:flex-row gap-4 mb-6"
+                >
+
+                    <div class="flex-1">
+
+                        <input
+                            type="text"
+                            id="memberSearch"
+                            placeholder="Search member or ARISE Code..."
+                            class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-yellow-500"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="memberTierFilter"
+                        class="bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-gray-300 outline-none focus:border-yellow-500"
+                    >
+
+                        <option value="">
+                            All Tiers
+                        </option>
+
+                        <option value="BRONZE">
+                            BRONZE
+                        </option>
+
+                        <option value="SILVER">
+                            SILVER
+                        </option>
+
+                        <option value="GOLD">
+                            GOLD
+                        </option>
+
+                        <option value="PLATINUM">
+                            PLATINUM
+                        </option>
+
+                        <option value="DIAMOND">
+                            DIAMOND
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- MEMBER TABLE -->
+
+                <div
+                    class="overflow-x-auto"
+                >
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                  ARISE Code
+                                </th>
+                                <th>
+                                  Member Name
+                                </th>
+                                <th>
+                                  Tier
+                                </th>
+                                <th>
+                                  Pledge
+                                </th>
+                                <th>
+                                  Frequency
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="membersTableBody"
+                        >
+
+                            <tr>
+
+                                <td
+                                    colspan="7"
+                                    class="text-center text-gray-500 py-12"
+                                >
+                                    Loading members...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+<!-- =========================================
+     NEW MEMBER MODAL
+========================================= -->
+
+<div
+    id="newMemberModal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[3000] hidden items-center justify-center px-4"
+>
+
+    <div
+        class="glass w-full max-w-lg p-8 relative"
+    >
+
+        <!-- CLOSE BUTTON -->
+
+        <button
+            type="button"
+            onclick="closeNewMember()"
+            class="absolute top-4 right-5 text-gray-400 hover:text-yellow-400 text-2xl"
+        >
+            ×
+        </button>
+
+
+        <!-- TITLE -->
+
+        <h2
+            class="title text-3xl gold mb-2"
+        >
+            Add New Member
+        </h2>
+
+
+        <p
+            class="text-gray-400 text-sm mb-8"
+        >
+            Register a new ARISE campaign member.
+        </p>
+
+
+        <!-- MEMBER NAME -->
+
+        <div class="mb-5">
+
+            <label
+                class="block text-gray-300 text-sm mb-2"
+            >
+                Member Name
+            </label>
+
+            <input
+                type="text"
+                id="newMemberName"
+                placeholder="Enter member name"
+                class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-yellow-500"
+            >
+
+        </div>
+
+
+        <!-- TOTAL PLEDGE -->
+
+        <div class="mb-5">
+
+            <label
+                class="block text-gray-300 text-sm mb-2"
+            >
+                Total Pledge
+            </label>
+
+            <input
+                type="number"
+                id="newMemberPledge"
+                min="0"
+                step="0.01"
+                placeholder="Enter pledge amount"
+                class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-yellow-500"
+            >
+
+        </div>
+
+
+        <!-- TIER -->
+
+        <div class="mb-6">
+
+            <label
+                class="block text-gray-300 text-sm mb-2"
+            >
+                Pledge Tier
+            </label>
+
+            <select
+                id="newMemberTier"
+                class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-gray-300 outline-none focus:border-yellow-500"
+            >
+
+                <option value="">
+                    Select Tier
+                </option>
+
+                <option value="BRONZE">
+                    BRONZE
+                </option>
+
+                <option value="SILVER">
+                    SILVER
+                </option>
+
+                <option value="GOLD">
+                    GOLD
+                </option>
+
+                <option value="PLATINUM">
+                    PLATINUM
+                </option>
+
+                <option value="DIAMOND">
+                    DIAMOND
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="newMemberError"
+            class="hidden mb-5 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm"
+        ></div>
+
+
+        <!-- BUTTONS -->
+
+        <div
+            class="flex justify-end gap-3"
+        >
+
+            <button
+                type="button"
+                onclick="closeNewMember()"
+                class="px-5 py-3 rounded-xl border border-gray-700 text-gray-300 hover:bg-white/5 transition"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                type="button"
+                id="saveNewMemberButton"
+                onclick="submitNewMember()"
+                class="bg-yellow-500 text-black px-6 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition"
+            >
+                Add Member
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+        </div>
+        <!-- END MEMBERS PAGE -->
+
+<!-- =========================================
+     MEMBER DETAILS MODAL
+========================================= -->
+
+<div
+    id="memberDetailsModal"
+    class="fixed inset-0 z-[3000] hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+>
+
+    <div
+        class="glass w-full max-w-2xl p-6 md:p-8 relative"
+    >
+
+        <!-- CLOSE BUTTON -->
+
+        <button
+            type="button"
+            onclick="closeMemberDetails()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full border border-gray-700 text-gray-400 hover:border-yellow-500 hover:text-yellow-400 transition"
+            title="Close"
+        >
+            ✕
+        </button>
+
+
+        <!-- HEADER -->
+
+        <div class="text-center mb-8">
+
+            <div class="text-5xl mb-4">
+                👤
+            </div>
+
+            <h2
+                id="memberDetailName"
+                class="title text-3xl gold"
+            >
+                Member Name
+            </h2>
+
+            <p
+                id="memberDetailCode"
+                class="text-gray-400 mt-2"
+            >
+                ARISE Code
+            </p>
+
+            <div class="mt-3">
+
+                <span
+                    id="memberDetailTier"
+                    class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
+                >
+                    TIER
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- FINANCIAL SUMMARY -->
+
+        <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-4"
+        >
+
+            <!-- PLEDGED -->
+
+            <div
+                class="bg-black/30 border border-gray-800 rounded-2xl p-5 text-center"
+            >
+
+                <div class="text-3xl mb-2">
+                    💛
+                </div>
+
+                <p class="text-gray-400 text-sm">
+                    Total Pledged
+                </p>
+
+                <h3
+                    id="memberDetailPledged"
+                    class="text-xl font-bold gold mt-2"
+                >
+                    ₱0.00
+                </h3>
+
+            </div>
+
+
+            <!-- CONTRIBUTIONS -->
+
+            <div
+                class="bg-black/30 border border-gray-800 rounded-2xl p-5 text-center"
+            >
+
+                <div class="text-3xl mb-2">
+                    💰
+                </div>
+
+                <p class="text-gray-400 text-sm">
+                    Contributions
+                </p>
+
+                <h3
+                    id="memberDetailContributions"
+                    class="text-xl font-bold text-green-400 mt-2"
+                >
+                    ₱0.00
+                </h3>
+
+            </div>
+
+
+            <!-- REMAINING -->
+
+            <div
+                class="bg-black/30 border border-gray-800 rounded-2xl p-5 text-center"
+            >
+
+                <div class="text-3xl mb-2">
+                    🎯
+                </div>
+
+                <p class="text-gray-400 text-sm">
+                    Remaining Balance
+                </p>
+
+                <h3
+                    id="memberDetailRemaining"
+                    class="text-xl font-bold text-red-400 mt-2"
+                >
+                    ₱0.00
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="mt-8">
+
+            <div class="flex justify-between items-center mb-3">
+
+                <p class="text-gray-400">
+                    Pledge Progress
+                </p>
+
+                <strong
+                    id="memberDetailProgressText"
+                    class="text-yellow-400"
+                >
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div
+                class="w-full h-4 bg-black/40 rounded-full overflow-hidden border border-gray-800"
+            >
+
+                <div
+                    id="memberDetailProgressBar"
+                    class="h-full bg-yellow-500 rounded-full transition-all duration-700"
+                    style="width: 0%;"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LAST UPDATED -->
+
+        <div
+            class="mt-8 pt-5 border-t border-gray-800 text-center"
+        >
+
+            <p class="text-gray-500 text-sm">
+                Last Updated
+            </p>
+
+            <p
+                id="memberDetailUpdated"
+                class="text-gray-300 mt-1"
+            >
+                —
+            </p>
+
+        </div>
+
+
+        <!-- CLOSE -->
+
+        <div class="text-center mt-7">
+
+            <button
+                type="button"
+                onclick="closeMemberDetails()"
+                class="px-6 py-3 rounded-xl border border-yellow-500/40 text-yellow-400 hover:bg-yellow-500 hover:text-black transition font-semibold"
+            >
+                Close
+            <button
+                type="button"
+                onclick="resetMemberPassword()"
+                class="px-5 py-2 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-500/20 transition font-semibold"
+            >
+                RESET PASSWORD
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     NEW MEMBER MODAL
+========================================= -->
+
+<div
+    id="newMemberModal"
+    class="fixed inset-0 z-[3000] hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+>
+
+    <div
+        class="glass w-full max-w-xl p-6 md:p-8 relative"
+    >
+
+        <!-- CLOSE BUTTON -->
+
+        <button
+            type="button"
+            onclick="closeNewMember()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full border border-gray-700 text-gray-400 hover:border-yellow-500 hover:text-yellow-400 transition"
+            title="Close"
+        >
+            ✕
+        </button>
+
+
+        <!-- HEADER -->
+
+        <div class="text-center mb-8">
+
+            <div class="text-5xl mb-4">
+                👤
+            </div>
+
+            <h2
+                class="title text-3xl gold"
+            >
+                New Member
+            </h2>
+
+            <p class="text-gray-400 mt-2">
+                Add a new ARISE campaign member.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form
+            id="newMemberForm"
+            onsubmit="submitNewMember(event)"
+        >
+
+            <!-- MEMBER NAME -->
+
+            <div class="mb-5">
+
+                <label
+                    for="newMemberName"
+                    class="block text-gray-300 text-sm mb-2"
+                >
+                    Member Name
+                </label>
+
+                <input
+                    type="text"
+                    id="newMemberName"
+                    name="memberName"
+                    required
+                    autocomplete="name"
+                    placeholder="Enter member name"
+                    class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-yellow-500"
+                >
+
+            </div>
+
+
+            <!-- TIER -->
+
+            <div class="mb-5">
+
+                <label
+                    for="newMemberTier"
+                    class="block text-gray-300 text-sm mb-2"
+                >
+                    Pledge Tier
+                </label>
+
+                <select
+                    id="newMemberTier"
+                    name="tier"
+                    required
+                    class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-gray-300 outline-none focus:border-yellow-500"
+                >
+
+                    <option value="">
+                        Select Tier
+                    </option>
+
+                    <option value="BRONZE">
+                        BRONZE
+                    </option>
+
+                    <option value="SILVER">
+                        SILVER
+                    </option>
+
+                    <option value="GOLD">
+                        GOLD
+                    </option>
+
+                    <option value="PLATINUM">
+                        PLATINUM
+                    </option>
+
+                    <option value="DIAMOND">
+                        DIAMOND
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TOTAL PLEDGE -->
+
+            <div class="mb-5">
+
+                <label
+                    for="newMemberPledge"
+                    class="block text-gray-300 text-sm mb-2"
+                >
+                    Total Pledge
+                </label>
+
+                <div class="relative">
+
+                    <span
+                        class="absolute left-4 top-1/2 -translate-y-1/2 text-yellow-400 font-semibold"
+                    >
+                        ₱
+                    </span>
+
+                    <input
+                        type="number"
+                        id="newMemberPledge"
+                        name="totalPledge"
+                        required
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                        class="w-full bg-black/30 border border-gray-700 rounded-xl pl-9 pr-4 py-3 text-white outline-none focus:border-yellow-500"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- FREQUENCY -->
+
+            <div class="mb-6">
+
+                <label
+                    for="newMemberFrequency"
+                    class="block text-gray-300 text-sm mb-2"
+                >
+                    Giving Frequency
+                </label>
+
+                <select
+                    id="newMemberFrequency"
+                    name="frequency"
+                    class="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-gray-300 outline-none focus:border-yellow-500"
+                >
+
+                    <option value="">
+                        Select Frequency
+                    </option>
+
+                    <option value="Anihan">
+                        Anihan
+                    </option>
+
+                    <option value="Monthly">
+                        Monthly
+                    </option>
+
+                    <option value="Quarterly">
+                        Quarterly
+                    </option>
+
+                    <option value="Annually">
+                        Annually
+                    </option>
+
+                </select>
+
+                <p class="text-xs text-gray-500 mt-2">
+                    Frequency will be connected to the member database later.
+                </p>
+
+            </div>
+
+
+            <!-- ERROR MESSAGE -->
+
+            <div
+                id="newMemberError"
+                class="hidden mb-5 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm"
+            >
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="flex flex-col sm:flex-row gap-3">
+
+                <button
+                    type="button"
+                    onclick="closeNewMember()"
+                    class="flex-1 px-6 py-3 rounded-xl border border-gray-700 text-gray-300 hover:border-gray-500 transition"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="newMemberSubmit"
+                    class="flex-1 px-6 py-3 rounded-xl bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition"
+                >
+                    Add Member
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     CASHIER PAGE
+===================================== -->
+
+<section
+    id="cashierPage"
+    class="page-section hidden"
+>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- =================================
+             CASHIER HEADER
+        ================================== -->
+
+        <div class="mb-8">
+
+            <h1 class="title text-3xl md:text-4xl gold">
+                Cashier
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Record member contributions and issue receipts.
+            </p>
+
+        </div>
+
+
+        <!-- =================================
+             TOP CASHIER AREA
+        ================================== -->
+
+        <div
+            class="grid lg:grid-cols-3 gap-8 items-start"
+        >
+
+
+            <!-- =================================
+                 RECORD CONTRIBUTION
+            ================================== -->
+
+            <div
+                class="glass p-6 md:p-8 lg:col-span-2"
+            >
+
+                <h2
+                    class="title text-2xl gold mb-6"
+                >
+                    Record Contribution
+                </h2>
+
+
+                <!-- ARISE CODE -->
+
+                <div class="mb-6">
+
+                    <label
+                        class="block text-sm text-gray-400 mb-2"
+                    >
+                        ARISE Code
+                    </label>
+
+
+                    <div class="flex gap-3">
+
+                        <input
+                            type="text"
+                            id="cashierAriseCode"
+                            placeholder="ARISE-2026-0160"
+                            autocomplete="off"
+                            class="flex-1 bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-yellow-500"
+                        >
+
+
+                        <button
+                            type="button"
+                            onclick="lookupCashierMember()"
+                            class="px-5 py-3 rounded-xl border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black transition"
+                        >
+                            Search
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     MEMBER INFORMATION
+                ================================== -->
+
+                <div
+                    id="cashierMemberInfo"
+                    class="hidden"
+                >
+
+                    <div
+                        class="grid md:grid-cols-2 gap-4 mb-6"
+                    >
+
+                        <!-- MEMBER -->
+
+                        <div
+                            class="bg-black/20 border border-gray-800 rounded-xl p-4"
+                        >
+
+                            <p class="text-gray-500 text-xs">
+                                MEMBER
+                            </p>
+
+                            <p
+                                id="cashierMemberName"
+                                class="font-semibold text-lg mt-1"
+                            >
+                                —
+                            </p>
+
+                        </div>
+
+
+                        <!-- TIER -->
+
+                        <div
+                            class="bg-black/20 border border-gray-800 rounded-xl p-4"
+                        >
+
+                            <p class="text-gray-500 text-xs">
+                                PLEDGE TIER
+                            </p>
+
+                            <p
+                                id="cashierMemberTier"
+                                class="gold font-semibold text-lg mt-1"
+                            >
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         FINANCIAL SUMMARY
+                    ================================== -->
+
+                    <div
+                        class="grid md:grid-cols-3 gap-4 mb-8"
+                    >
+
+                        <!-- TOTAL PLEDGE -->
+
+                        <div
+                            class="bg-black/20 border border-gray-800 rounded-xl p-4"
+                        >
+
+                            <p class="text-gray-500 text-xs">
+                                TOTAL PLEDGE
+                            </p>
+
+                            <p
+                                id="cashierPledge"
+                                class="text-xl font-bold gold mt-1"
+                            >
+                                ₱0.00
+                            </p>
+
+                        </div>
+
+
+                        <!-- CONTRIBUTIONS -->
+
+                        <div
+                            class="bg-black/20 border border-gray-800 rounded-xl p-4"
+                        >
+
+                            <p class="text-gray-500 text-xs">
+                                CONTRIBUTIONS
+                            </p>
+
+                            <p
+                                id="cashierContribution"
+                                class="text-xl font-bold mt-1"
+                            >
+                                ₱0.00
+                            </p>
+
+                        </div>
+
+
+                        <!-- REMAINING -->
+
+                        <div
+                            class="bg-black/20 border border-gray-800 rounded-xl p-4"
+                        >
+
+                            <p class="text-gray-500 text-xs">
+                                REMAINING
+                            </p>
+
+                            <p
+                                id="cashierRemaining"
+                                class="text-xl font-bold text-red-400 mt-1"
+                            >
+                                ₱0.00
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         CONTRIBUTION AMOUNT
+                    ================================== -->
+
+                    <div class="mb-6">
+
+                        <label
+                            class="block text-sm text-gray-400 mb-2"
+                        >
+                            Contribution Amount
+                        </label>
+
+
+                        <div class="relative">
+
+                            <span
+                                class="absolute left-4 top-1/2 -translate-y-1/2 text-yellow-400 font-semibold"
+                            >
+                                ₱
+                            </span>
+
+
+                            <input
+                                type="number"
+                                id="cashierAmount"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                autocomplete="off"
+                                class="w-full bg-black/30 border border-gray-700 rounded-xl pl-10 pr-4 py-4 text-white text-xl outline-none focus:border-yellow-500"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         CONTRIBUTION PREVIEW
+                    ================================== -->
+
+                    <div
+                        id="cashierPreview"
+                        class="hidden bg-yellow-500/5 border border-yellow-500/20 rounded-xl p-5 mb-6"
+                    >
+
+                        <h3
+                            class="font-semibold gold mb-4"
+                        >
+                            Contribution Preview
+                        </h3>
+
+
+                        <div class="space-y-3 text-sm">
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-gray-400">
+                                    Current Balance
+                                </span>
+
+                                <strong
+                                    id="previewCurrentBalance"
+                                >
+                                    ₱0.00
+                                </strong>
+
+                            </div>
+
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-gray-400">
+                                    New Contribution
+                                </span>
+
+                                <strong
+                                    id="previewContribution"
+                                    class="gold"
+                                >
+                                    ₱0.00
+                                </strong>
+
+                            </div>
+
+
+                            <hr class="border-gray-800">
+
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-gray-400">
+                                    New Remaining Balance
+                                </span>
+
+                                <strong
+                                    id="previewRemaining"
+                                    class="text-red-400"
+                                >
+                                    ₱0.00
+                                </strong>
+
+                            </div>
+
+
+                            <div class="flex justify-between gap-4">
+
+                                <span class="text-gray-400">
+                                    New Progress
+                                </span>
+
+                                <strong
+                                    id="previewProgress"
+                                    class="text-yellow-400"
+                                >
+                                    0%
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         SAVE BUTTON
+                    ================================== -->
+
+                    <button
+                        type="button"
+                        id="saveContributionButton"
+                        onclick="processCashierContribution()"
+                        disabled
+                        class="w-full bg-yellow-500 text-black px-6 py-4 rounded-xl font-bold text-lg hover:bg-yellow-400 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                        💾 Save Contribution
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     INITIAL MESSAGE
+                ================================== -->
+
+                <div
+                    id="cashierEmptyState"
+                    class="text-center py-12 text-gray-500"
+                >
+
+                    <div class="text-5xl mb-4">
+                        💰
+                    </div>
+
+                    <p>
+                        Enter an ARISE Code to begin.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     ERROR
+                ================================== -->
+
+                <div
+                    id="cashierError"
+                    class="hidden mt-5 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-sm"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 TRANSACTION INFORMATION
+            ================================== -->
+
+            <div
+                class="glass p-6 md:p-8 h-fit"
+            >
+
+                <h2
+                    class="title text-2xl gold mb-6"
+                >
+                    Transaction
+                </h2>
+
+
+                <div class="space-y-6">
+
+
+                    <!-- DATE -->
+
+                    <div>
+
+                        <p class="text-gray-500 text-xs">
+                            DATE
+                        </p>
+
+                        <p
+                            id="cashierDate"
+                            class="mt-1 break-words"
+                        >
+                            —
+                        </p>
+
+                    </div>
+
+
+                    <!-- TRANSACTION ID -->
+
+                    <div>
+
+                        <p class="text-gray-500 text-xs">
+                            TRANSACTION ID
+                        </p>
+
+                        <p
+                            id="cashierTransactionId"
+                            class="mt-1 text-gray-400 break-all text-sm"
+                        >
+                            Generated after saving
+                        </p>
+
+                    </div>
+
+
+                    <!-- RECEIPT NO -->
+
+                    <div>
+
+                        <p class="text-gray-500 text-xs">
+                            RECEIPT NO
+                        </p>
+
+                        <p
+                            id="cashierReceiptNo"
+                            class="mt-1 text-gray-400 break-all text-sm"
+                        >
+                            Generated after saving
+                        </p>
+
+                    </div>
+
+
+                    <!-- OR NO -->
+
+                    <div>
+
+                        <p class="text-gray-500 text-xs">
+                            OR NO
+                        </p>
+
+                        <p
+                            id="cashierOrNo"
+                            class="mt-1 text-gray-400 break-all text-sm"
+                        >
+                            Generated after saving
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     SUCCESS / RECEIPT AREA
+                ================================== -->
+
+                <div
+                    id="cashierSuccess"
+                    class="hidden mt-8 bg-green-500/10 border border-green-500/30 rounded-xl p-5"
+                >
+
+                    <div class="flex items-start gap-3">
+
+                        <div class="text-2xl">
+                            ✓
+                        </div>
+
+
+                        <div class="min-w-0 flex-1">
+
+                            <h3
+                                class="font-bold text-green-400"
+                            >
+                                Contribution Saved
+                            </h3>
+
+
+                            <div
+                                id="cashierSuccessMessage"
+                                class="text-sm text-gray-300 mt-3 leading-6"
+                            >
+                            </div>
+
+
+                            <!-- RECEIPT BUTTON -->
+
+                            <div
+                                id="cashierReceiptAction"
+                                class="hidden mt-5"
+                            >
+
+                                <a
+                                    id="cashierReceiptLink"
+                                    href="#"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="inline-flex items-center justify-center w-full px-5 py-3 rounded-xl bg-yellow-500 text-black font-bold hover:bg-yellow-400 transition"
+                                >
+                                    🧾 View / Print Receipt
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<!-- =================================
+     CONTRIBUTION HISTORY
+     FULL WIDTH — BELOW CASHIER AREA
+================================= -->
+
+<div
+    class="glass p-6 md:p-8 mt-8"
+>
+
+    <!-- HEADER -->
+    <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6"
+    >
+
+        <div>
+
+            <h2
+                class="text-2xl font-bold gold"
+            >
+                Contribution History
+            </h2>
+
+            <p
+                class="text-gray-500 mt-1"
+            >
+                Search and review all recorded contributions.
+            </p>
+
+        </div>
+
+        <div
+            class="text-sm text-gray-400"
+        >
+            <span id="cashierHistorySummary">
+                Loading...
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- FILTERS -->
+    <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6"
+    >
+
+        <!-- SEARCH -->
+        <div class="lg:col-span-2">
+
+            <label
+                class="block text-sm text-gray-400 mb-2"
+            >
+                Search
+            </label>
+
+            <input
+                type="text"
+                id="cashierHistorySearch"
+                placeholder="ARISE Code, member, OR No., receipt..."
+                class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-700 text-white outline-none focus:border-yellow-500"
+            >
+
+        </div>
+
+
+        <!-- DATE FROM -->
+        <div>
+
+            <label
+                class="block text-sm text-gray-400 mb-2"
+            >
+                Date From
+            </label>
+
+            <input
+                type="date"
+                id="cashierHistoryDateFrom"
+                class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-700 text-white outline-none focus:border-yellow-500"
+            >
+
+        </div>
+
+
+        <!-- DATE TO -->
+        <div>
+
+            <label
+                class="block text-sm text-gray-400 mb-2"
+            >
+                Date To
+            </label>
+
+            <input
+                type="date"
+                id="cashierHistoryDateTo"
+                class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-700 text-white outline-none focus:border-yellow-500"
+            >
+
+        </div>
+
+
+        <!-- SORT -->
+        <div>
+
+            <label
+                class="block text-sm text-gray-400 mb-2"
+            >
+                Sort
+            </label>
+
+            <select
+                id="cashierHistorySort"
+                class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-700 text-white outline-none focus:border-yellow-500"
+            >
+                <option value="newest">
+                    Newest First
+                </option>
+
+                <option value="oldest">
+                    Oldest First
+                </option>
+
+                <option value="amountHigh">
+                    Amount: High to Low
+                </option>
+
+                <option value="amountLow">
+                    Amount: Low to High
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- FILTER BUTTONS -->
+    <div
+        class="flex flex-wrap gap-3 mb-6"
+    >
+
+        <button
+            type="button"
+            onclick="loadContributionHistory(1)"
+            class="px-5 py-2.5 rounded-xl bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition"
+        >
+            🔎 Search
+        </button>
+
+        <button
+            type="button"
+            onclick="clearContributionHistoryFilters()"
+            class="px-5 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:border-yellow-500 hover:text-yellow-400 transition"
+        >
+            Clear
+        </button>
+
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"
+    >
+
+        <div
+            class="rounded-xl border border-gray-800 bg-black/20 p-4"
+        >
+
+            <p
+                class="text-sm text-gray-500"
+            >
+                Records
+            </p>
+
+            <p
+                id="cashierHistoryTotalRecords"
+                class="text-2xl font-bold text-white mt-1"
+            >
+                0
+            </p>
+
+        </div>
+
+
+        <div
+            class="rounded-xl border border-gray-800 bg-black/20 p-4"
+        >
+
+            <p
+                class="text-sm text-gray-500"
+            >
+                Total Contributions
+            </p>
+
+            <p
+                id="cashierHistoryTotalAmount"
+                class="text-2xl font-bold gold mt-1"
+            >
+                ₱0.00
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+    <div
+        class="overflow-x-auto"
+    >
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ARISE Code
+                    </th>
+
+                    <th>
+                        Member
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Transaction ID
+                    </th>
+
+                    <th>
+                        Receipt No.
+                    </th>
+
+                    <th>
+                        OR No.
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody
+                id="cashierRecentTable"
+            >
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        class="text-center text-gray-500 py-10"
+                    >
+                        Loading contribution history...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- PAGINATION -->
+    <div
+        class="flex flex-col md:flex-row items-center justify-between gap-4 mt-6"
+    >
+
+        <div
+            class="text-sm text-gray-500"
+            id="cashierHistoryPageInfo"
+        >
+            Page 1
+        </div>
+
+
+        <div
+            class="flex items-center gap-2"
+        >
+
+            <button
+                type="button"
+                id="cashierHistoryPrev"
+                onclick="changeContributionHistoryPage(-1)"
+                class="px-4 py-2 rounded-lg border border-gray-700 text-gray-300 hover:border-yellow-500 hover:text-yellow-400 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+                ← Previous
+            </button>
+
+            <button
+                type="button"
+                id="cashierHistoryNext"
+                onclick="changeContributionHistoryPage(1)"
+                class="px-4 py-2 rounded-lg border border-gray-700 text-gray-300 hover:border-yellow-500 hover:text-yellow-400 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+                Next →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </main>
+
+</section>
+
+<!-- END CASHIER PAGE -->
+
+    </main>
+
+</section>
+
+
+
+<!-- =========================================================
+     REPORTS PAGE — ARISE 5-YEAR PLEDGE
+========================================================= -->
+<section id="reportsPage" class="page-section" style="display:none;">
+    <main class="p-4 md:p-8">
+        <div class="max-w-7xl mx-auto" id="ariseReportContent">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+                <div>
+                    <p class="text-yellow-400 font-semibold tracking-wide text-sm">ARISE 5-YEAR PLEDGE</p>
+                    <h1 class="text-2xl md:text-3xl font-bold text-white mt-1">Reports</h1>
+                </div>
+                <div class="flex flex-wrap gap-2 print:hidden">
+                    <select id="ariseReportMonth" class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white"></select>
+                    <select id="ariseReportYear" class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white"></select>
+                    <button type="button" onclick="generateAriseReport()" class="px-4 py-2 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-400">Generate Report</button>
+                    <button type="button" onclick="printAriseReport()" class="px-4 py-2 rounded-lg border border-gray-700 text-white hover:border-yellow-500">Print Report</button>
+                </div>
+            </div>
+
+            <div id="ariseReportStatus" class="text-sm text-gray-400 mb-5">Select a month and year, then generate the report.</div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-white mb-4">Monthly Overview</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Total Pledgers</div><div id="reportTotalPledgers" class="text-2xl font-bold text-white mt-2">0</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">New Members</div><div id="reportNewMembers" class="text-2xl font-bold text-white mt-2">0</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Total Pledged</div><div id="reportTotalPledged" class="text-2xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Collected This Month</div><div id="reportCollectedMonth" class="text-2xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Contributions</div><div id="reportContributionCount" class="text-2xl font-bold text-white mt-2">0</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Average Contribution</div><div id="reportAverageContribution" class="text-2xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 sm:col-span-2"><div class="text-gray-400 text-sm">Pledge Fulfillment</div><div id="reportPledgeFulfillment" class="text-2xl font-bold text-white mt-2">0%</div><div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-3"><div id="reportPledgeFulfillmentBar" class="h-full bg-yellow-500" style="width:0%"></div></div></div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-white mb-4">Pledge Tier Breakdown</h2>
+                <div class="overflow-x-auto bg-gray-900 border border-gray-800 rounded-xl">
+                    <table class="w-full"><thead><tr><th>Tier</th><th>Members</th><th>Total Pledged</th><th>Collected This Month</th></tr></thead><tbody id="reportTierTable"><tr><td colspan="4" class="text-center text-gray-500 py-8">No report generated yet.</td></tr></tbody></table>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-white mb-4">Contribution Summary</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Total Contributions</div><div id="reportSummaryCount" class="text-xl font-bold text-white mt-2">0</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Total Amount Collected</div><div id="reportSummaryAmount" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Highest Contribution</div><div id="reportHighestContribution" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Lowest Contribution</div><div id="reportLowestContribution" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Average Contribution</div><div id="reportSummaryAverage" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-white mb-4">Monthly Collection by Date</h2>
+                <div class="overflow-x-auto bg-gray-900 border border-gray-800 rounded-xl">
+                    <table class="w-full"><thead><tr><th>Date</th><th>Contributions</th><th>Amount Collected</th></tr></thead><tbody id="reportDailyTable"><tr><td colspan="3" class="text-center text-gray-500 py-8">No report generated yet.</td></tr></tbody></table>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-white mb-4">5-Year Campaign Progress</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">5-Year Pledge Goal</div><div id="reportCampaignGoal" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Total Pledged</div><div id="reportCampaignPledged" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Total Collected</div><div id="reportCampaignCollected" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-5"><div class="text-gray-400 text-sm">Remaining Pledge</div><div id="reportRemainingPledge" class="text-xl font-bold text-white mt-2">₱0.00</div></div>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 mt-4">
+                    <div class="flex items-center justify-between gap-4"><div class="text-gray-400 text-sm">Collection Progress</div><div id="reportCampaignProgress" class="text-white font-bold">0%</div></div>
+                    <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden mt-3"><div id="reportCampaignProgressBar" class="h-full bg-yellow-500" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
+
+<!-- END REPORTS PAGE -->
+
+<script>
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+/* =========================================================
+   CASHIER — MEMBER LOOKUP
+========================================================= */
+
+async function lookupCashierMember() {
+
+    const codeInput =
+        document.getElementById("cashierAriseCode");
+
+    const code =
+        codeInput
+            ? codeInput.value.trim()
+            : "";
+
+    const memberInfo =
+        document.getElementById("cashierMemberInfo");
+
+    const emptyState =
+        document.getElementById("cashierEmptyState");
+
+    const errorBox =
+        document.getElementById("cashierError");
+
+    const successBox =
+        document.getElementById("cashierSuccess");
+
+    const saveButton =
+        document.getElementById(
+            "saveContributionButton"
+        );
+
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    if (errorBox) {
+
+        errorBox.classList.add("hidden");
+
+        errorBox.textContent = "";
+
+    }
+
+
+    if (successBox) {
+
+        successBox.classList.add("hidden");
+
+    }
+
+
+    if (saveButton) {
+
+        saveButton.disabled = true;
+
+    }
+
+
+    if (!code) {
+
+        showCashierError(
+            "Please enter an ARISE Code."
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       SHOW LOADING
+    ===================================================== */
+
+    if (emptyState) {
+
+        emptyState.classList.add("hidden");
+
+    }
+
+
+    if (memberInfo) {
+
+        memberInfo.classList.add("hidden");
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                MEMBERS_DASHBOARD_URL.replace(
+                    "?action=membersDashboard",
+                    "?action=memberLookup&code=" +
+                    encodeURIComponent(code)
+                ) +
+                "&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Cashier Member Lookup:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Member not found."
+            );
+
+        }
+
+
+        const member =
+            data.member || {};
+
+
+        /* =================================================
+           DISPLAY MEMBER
+        ================================================= */
+
+        setText(
+            "cashierMemberName",
+            member.memberName || "—"
+        );
+
+
+        setText(
+            "cashierMemberTier",
+            member.tier || "—"
+        );
+
+
+        setText(
+            "cashierPledge",
+            peso(
+                member.totalPledge || 0
+            )
+        );
+
+
+        setText(
+            "cashierContribution",
+            peso(
+                member.totalContributions || 0
+            )
+        );
+
+
+        setText(
+            "cashierRemaining",
+            peso(
+                member.remainingBalance || 0
+            )
+        );
+
+
+        /* =================================================
+           SHOW MEMBER INFORMATION
+        ================================================= */
+
+        if (memberInfo) {
+
+            memberInfo.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           CLEAR OLD AMOUNT
+        ================================================= */
+
+        const amountInput =
+            document.getElementById(
+                "cashierAmount"
+            );
+
+
+        if (amountInput) {
+
+            amountInput.value = "";
+
+        }
+
+
+        const preview =
+            document.getElementById(
+                "cashierPreview"
+            );
+
+
+        if (preview) {
+
+            preview.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           SAVE MEMBER DATA FOR NEXT STEP
+        ================================================= */
+
+        window.cashierMember = member;
+
+
+        /* =================================================
+           DATE
+        ================================================= */
+
+        const now =
+            new Date();
+
+
+        setText(
+            "cashierDate",
+            now.toLocaleDateString(
+                "en-PH",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            )
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Cashier Member Lookup Error:",
+            error
+        );
+
+
+        if (emptyState) {
+
+            emptyState.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        showCashierError(
+            error.message ||
+            "Unable to find member."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CASHIER ERROR
+========================================================= */
+
+function showCashierError(message) {
+
+    const errorBox =
+        document.getElementById(
+            "cashierError"
+        );
+
+
+    if (!errorBox) {
+
+        return;
+
+    }
+
+
+    errorBox.textContent =
+        message;
+
+
+    errorBox.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   CASHIER — ENTER KEY
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const codeInput =
+            document.getElementById(
+                "cashierAriseCode"
+            );
+
+
+        if (codeInput) {
+
+            codeInput.addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        lookupCashierMember();
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+);
+
+/* =========================================================
+   CONTRIBUTION HISTORY
+========================================================= */
+
+let cashierHistoryPage = 1;
+const cashierHistoryPageSize = 20;
+
+
+/* =========================================================
+   LOAD CONTRIBUTION HISTORY
+========================================================= */
+
+async function loadContributionHistory(page) {
+
+    const table =
+        document.getElementById(
+            "cashierRecentTable"
+        );
+
+    if (!table) {
+        return;
+    }
+
+
+    cashierHistoryPage =
+        page || cashierHistoryPage || 1;
+
+
+    table.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                class="text-center text-gray-500 py-10"
+            >
+                Loading contribution history...
+            </td>
+        </tr>
+    `;
+
+
+    try {
+
+        const search =
+            document.getElementById(
+                "cashierHistorySearch"
+            )?.value.trim() || "";
+
+
+        const dateFrom =
+            document.getElementById(
+                "cashierHistoryDateFrom"
+            )?.value || "";
+
+
+        const dateTo =
+            document.getElementById(
+                "cashierHistoryDateTo"
+            )?.value || "";
+
+
+        const sort =
+            document.getElementById(
+                "cashierHistorySort"
+            )?.value || "newest";
+
+
+        const params =
+            new URLSearchParams({
+
+                action:
+                    "contributionHistory",
+
+                search:
+                    search,
+
+                dateFrom:
+                    dateFrom,
+
+                dateTo:
+                    dateTo,
+
+                sort:
+                    sort,
+
+                page:
+                    cashierHistoryPage,
+
+                pageSize:
+                    cashierHistoryPageSize,
+
+                _:
+                    Date.now()
+
+            });
+
+
+        const response =
+            await fetch(
+                API_BASE_URL +
+                "?" +
+                params.toString(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Contribution History:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load contribution history."
+            );
+
+        }
+
+
+        const history =
+            data.history || [];
+
+
+        /* =========================================
+           SUMMARY
+        ========================================= */
+
+        const totalRecords =
+            Number(
+                data.totalRecords || 0
+            );
+
+
+        const totalAmount =
+            Number(
+                data.totalAmount || 0
+            );
+
+
+        const totalPages =
+            Number(
+                data.totalPages || 1
+            );
+
+
+        document.getElementById(
+            "cashierHistoryTotalRecords"
+        ).textContent =
+            totalRecords.toLocaleString();
+
+
+        document.getElementById(
+            "cashierHistoryTotalAmount"
+        ).textContent =
+            peso(totalAmount);
+
+
+        document.getElementById(
+            "cashierHistorySummary"
+        ).textContent =
+            totalRecords === 1
+                ? "1 contribution found"
+                : totalRecords.toLocaleString() +
+                  " contributions found";
+
+
+        document.getElementById(
+            "cashierHistoryPageInfo"
+        ).textContent =
+            "Page " +
+            cashierHistoryPage +
+            " of " +
+            totalPages;
+
+
+        /* =========================================
+           PAGINATION BUTTONS
+        ========================================= */
+
+        const prevButton =
+            document.getElementById(
+                "cashierHistoryPrev"
+            );
+
+
+        const nextButton =
+            document.getElementById(
+                "cashierHistoryNext"
+            );
+
+
+        if (prevButton) {
+
+            prevButton.disabled =
+                cashierHistoryPage <= 1;
+
+        }
+
+
+        if (nextButton) {
+
+            nextButton.disabled =
+                cashierHistoryPage >= totalPages;
+
+        }
+
+
+        /* =========================================
+           EMPTY
+        ========================================= */
+
+        if (!history.length) {
+
+            table.innerHTML = `
+                <tr>
+                    <td
+                        colspan="8"
+                        class="text-center text-gray-500 py-10"
+                    >
+                        No contributions found.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        table.innerHTML =
+            history
+                .map(function(item) {
+
+                    let actionHtml = `
+                        <button
+                            type="button"
+                            onclick="viewCashierReceipt(
+                                '${escapeHtml(item.ariseCode || "")}',
+                                '${escapeHtml(item.transactionId || "")}'
+                            )"
+                            class="inline-flex items-center px-3 py-2 rounded-lg border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black transition text-sm font-semibold"
+                        >
+                            🧾 View / Print
+                        </button>
+                    `;
+
+
+                    return `
+
+                        <tr>
+
+                            <td>
+                                <span
+                                    class="font-semibold"
+                                >
+                                    ${escapeHtml(
+                                        item.ariseCode || ""
+                                    )}
+                                </span>
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    item.memberName || "—"
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    item.date || ""
+                                )}
+                            </td>
+
+
+                            <td
+                                class="text-right gold font-semibold"
+                            >
+                                ${peso(
+                                    item.amount
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    item.transactionId || "—"
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    item.receiptNo || "—"
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    item.orNo || "—"
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${actionHtml}
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                })
+                .join("");
+
+
+    } catch (error) {
+
+        console.error(
+            "Contribution History Error:",
+            error
+        );
+
+
+        table.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="text-center text-red-400 py-10"
+                >
+                    ${escapeHtml(
+                        error.message ||
+                        "Unable to load contribution history."
+                    )}
+                </td>
+            </tr>
+        `;
+
+
+        const summary =
+            document.getElementById(
+                "cashierHistorySummary"
+            );
+
+        if (summary) {
+            summary.textContent =
+                "Unable to load history";
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   CHANGE PAGE
+========================================================= */
+
+function changeContributionHistoryPage(direction) {
+
+    const newPage =
+        cashierHistoryPage +
+        direction;
+
+
+    if (newPage < 1) {
+        return;
+    }
+
+
+    loadContributionHistory(
+        newPage
+    );
+
+}
+
+async function viewCashierReceipt(ariseCode, transactionId) {
+
+    try {
+
+        console.log(
+            "Opening receipt:",
+            ariseCode,
+            transactionId
+        );
+
+
+        const params =
+            new URLSearchParams({
+
+                action: "generateReceipt",
+
+                ariseCode: ariseCode,
+
+                transactionId: transactionId,
+
+                _: Date.now()
+
+            });
+
+
+        const response =
+            await fetch(
+                API_BASE_URL +
+                "?" +
+                params.toString(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Receipt response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to generate receipt."
+            );
+
+        }
+
+
+        /*
+         * TEMPORARY TEST
+         *
+         * We will use the returned receipt data
+         * to build the printable receipt next.
+         */
+
+        console.log(
+            "Receipt data:",
+            data
+        );
+
+
+        alert(
+            "Receipt loaded successfully."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "View Receipt Error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Unable to load receipt."
+        );
+
+    }
+
+}
+
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
+
+function clearContributionHistoryFilters() {
+
+    const search =
+        document.getElementById(
+            "cashierHistorySearch"
+        );
+
+
+    const dateFrom =
+        document.getElementById(
+            "cashierHistoryDateFrom"
+        );
+
+
+    const dateTo =
+        document.getElementById(
+            "cashierHistoryDateTo"
+        );
+
+
+    const sort =
+        document.getElementById(
+            "cashierHistorySort"
+        );
+
+
+    if (search) {
+        search.value = "";
+    }
+
+
+    if (dateFrom) {
+        dateFrom.value = "";
+    }
+
+
+    if (dateTo) {
+        dateTo.value = "";
+    }
+
+
+    if (sort) {
+        sort.value = "newest";
+    }
+
+
+    cashierHistoryPage = 1;
+
+
+    loadContributionHistory(
+        1
+    );
+
+}
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchInput =
+        document.getElementById("cashierHistorySearch");
+
+    const sortSelect =
+        document.getElementById("cashierHistorySort");
+
+    const dateFrom =
+        document.getElementById("cashierHistoryDateFrom");
+
+    const dateTo =
+        document.getElementById("cashierHistoryDateTo");
+
+
+    // SEARCH — press Enter
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "keydown",
+            function (e) {
+
+                if (e.key === "Enter") {
+
+                    e.preventDefault();
+
+                    loadContributionHistory(1);
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // SORT — immediately reload
+    if (sortSelect) {
+
+        sortSelect.addEventListener(
+            "change",
+            function () {
+
+                console.log(
+                    "Contribution History sort changed:",
+                    this.value
+                );
+
+                loadContributionHistory(1);
+
+            }
+        );
+
+    }
+
+
+    // DATE FROM — reload when changed
+    if (dateFrom) {
+
+        dateFrom.addEventListener(
+            "change",
+            function () {
+
+                loadContributionHistory(1);
+
+            }
+        );
+
+    }
+
+
+    // DATE TO — reload when changed
+    if (dateTo) {
+
+        dateTo.addEventListener(
+            "change",
+            function () {
+
+                loadContributionHistory(1);
+
+            }
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   BACKWARD COMPATIBILITY
+   Existing calls to this function will now
+   load the full Contribution History.
+========================================================= */
+
+async function loadCashierRecentContributions() {
+
+    return loadContributionHistory(
+        1
+    );
+
+}
+
+/* =========================================================
+   ARISE CAMPAIGN WEB APP
+   UPDATED JAVASCRIPT
+========================================================= */
+
+
+/* =========================================================
+   API CONFIGURATION
+========================================================= */
+
+const API_BASE_URL =
+    "https://script.google.com/macros/s/AKfycbzZ2p0c_3pZ2sxyUfACpXZJVo83zPSPLvnceYl8V7VYTGfSqkp4zpomrRn_vkYUaiQy/exec";
+
+
+const API_URL =
+    API_BASE_URL +
+    "?action=campaign";
+
+
+const MEMBERS_API_URL =
+    API_BASE_URL +
+    "?action=membersDashboard";
+
+const MEMBER_LOOKUP_URL =
+    API_BASE_URL +
+    "?action=memberLookup";
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
+let allMembers = [];
+
+let currentMemberCode = "";
+/* =========================================================
+   PESO FORMAT
+========================================================= */
+
+function peso(value) {
+
+    const number =
+        Number(value) || 0;
+
+    return "₱" +
+        number.toLocaleString(
+            "en-PH",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+}
+
+/* =========================================
+   LOAD MEMBERS DASHBOARD
+========================================= */
+
+async function loadMembersDashboard() {
+
+    const tbody =
+        document.getElementById(
+            "membersTableBody"
+        );
+
+
+    if (!tbody) {
+
+        console.error(
+            "membersTableBody was not found."
+        );
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="6"
+                class="text-center text-gray-500 py-12"
+            >
+
+                Loading members...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        /*
+         * Use the SAME API_URL
+         * already used by your dashboard.
+         */
+
+        const response =
+          await fetch(
+            MEMBERS_API_URL
+          );
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load members."
+            );
+
+        }
+
+
+        const members =
+            data.members || [];
+
+
+        if (members.length === 0) {
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="text-center text-gray-500 py-12"
+                    >
+
+                        No members found.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        tbody.innerHTML = "";
+
+
+        members.forEach(member => {
+
+            const pledge =
+                Number(
+                    member.totalPledge
+                ) || 0;
+
+
+            tbody.innerHTML += `
+
+                <tr
+                    class="border-b border-gray-800 hover:bg-white/5"
+                >
+
+                    <td class="py-4 gold font-semibold">
+
+                        ${member.ariseCode || "—"}
+
+                    </td>
+
+
+                    <td>
+
+                        ${member.memberName || "—"}
+
+                    </td>
+
+
+                    <td>
+
+                        ${member.tier || "—"}
+
+                    </td>
+
+
+                    <td>
+
+                        ${peso(member.totalPledge || 0)}
+
+                    </td>
+
+
+                    <td>
+
+                        —
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="px-3 py-1 rounded-full text-xs bg-green-500/10 text-green-400"
+                        >
+
+                            Active
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Members Dashboard Error:",
+            error
+        );
+
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="text-center text-red-400 py-12"
+                >
+
+                    Unable to load members.
+
+                    <br>
+
+                    <span class="text-gray-500 text-sm">
+
+                        ${error.message}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+/* =========================================================
+   SAFE TEXT
+========================================================= */
+
+function safeText(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   ANIMATE NUMBER
+========================================================= */
+
+function animateValue(
+    id,
+    endValue,
+    isMoney = true
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    const finalValue =
+        Number(endValue) || 0;
+
+
+    let startValue = 0;
+
+
+    const duration = 1000;
+
+    const steps = 60;
+
+
+    const increment =
+        finalValue / steps;
+
+
+    let currentStep = 0;
+
+
+    const timer =
+        setInterval(() => {
+
+            currentStep++;
+
+            startValue += increment;
+
+
+            if (
+                currentStep >= steps
+            ) {
+
+                startValue =
+                    finalValue;
+
+                clearInterval(timer);
+
+            }
+
+
+            if (isMoney) {
+
+                element.textContent =
+                    peso(startValue);
+
+            }
+            else {
+
+                element.textContent =
+                    Math.round(startValue);
+
+            }
+
+        }, duration / steps);
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(page) {
+
+    const pages = [
+
+        "dashboardPage",
+        "membersPage",
+        "cashierPage",
+        "reportsPage"
+
+    ];
+
+
+    pages.forEach(
+        pageId => {
+
+            const element =
+                document.getElementById(
+                    pageId
+                );
+
+
+            if (element) {
+
+                element.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    const selectedPage =
+        document.getElementById(
+            page + "Page"
+        );
+
+
+    if (selectedPage) {
+
+        selectedPage.style.display =
+            "block";
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".sideButton"
+        )
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const navButton =
+        document.getElementById(
+            "nav" +
+            page.charAt(0).toUpperCase() +
+            page.slice(1)
+        );
+
+
+    if (navButton) {
+
+        navButton.classList.add(
+            "active"
+        );
+
+    }
+
+    if (page === "members") {
+
+        document
+            .getElementById("membersPage")
+            .style.display = "block";
+
+        loadMembers();
+
+
+    }
+
+
+    if (page === "reports") {
+
+        const reportsPage =
+            document.getElementById("reportsPage");
+
+        if (reportsPage) {
+            reportsPage.style.display = "block";
+        }
+
+        initAriseReportSelectors();
+        generateAriseReport();
+
+    }
+
+
+    if (
+        window.innerWidth <= 768
+    ) {
+
+        const sidebar =
+            document.getElementById(
+                "ariseSidebar"
+            );
+
+
+        if (sidebar) {
+
+            sidebar.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById(
+            "ariseSidebar"
+        );
+
+
+    if (!sidebar) {
+
+        return;
+
+    }
+
+
+    sidebar.classList.toggle(
+        "open"
+    );
+
+}
+
+
+/* =========================================================
+   SIDEBAR COLLAPSE
+========================================================= */
+
+function toggleSidebarCollapse() {
+
+    const sidebar =
+        document.getElementById(
+            "ariseSidebar"
+        );
+
+
+    if (!sidebar) {
+
+        return;
+
+    }
+
+
+    sidebar.classList.toggle(
+        "collapsed"
+    );
+
+
+    document.body.classList.toggle(
+        "sidebarCollapsed"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD CAMPAIGN DASHBOARD
+========================================================= */
+
+async function loadCampaign() {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Campaign API Response:",
+            data
+        );
+
+
+        hideLoading();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Campaign data could not be loaded."
+            );
+
+        }
+
+
+        const campaign =
+            data.campaign || {};
+
+
+        /* =================================================
+           MAIN DASHBOARD VALUES
+        ================================================= */
+
+        animateValue(
+            "totalContribution",
+            campaign.contribution
+        );
+
+
+        animateValue(
+            "cardContribution",
+            campaign.contribution
+        );
+
+
+        animateValue(
+            "cardPledged",
+            campaign.pledged
+        );
+
+
+        animateValue(
+            "cardRemaining",
+            campaign.remaining
+        );
+
+
+        animateValue(
+            "summaryGoal",
+            campaign.goal
+        );
+
+
+        animateValue(
+            "summaryPledged",
+            campaign.pledged
+        );
+
+
+        animateValue(
+            "summaryContribution",
+            campaign.contribution
+        );
+
+
+        animateValue(
+            "summaryRemaining",
+            campaign.remaining
+        );
+
+
+        animateValue(
+            "cardFamilies",
+            campaign.families,
+            false
+        );
+
+
+        animateValue(
+            "summaryFamilies",
+            campaign.families,
+            false
+        );
+
+
+        /* =================================================
+           GOAL
+        ================================================= */
+
+        setText(
+            "goal",
+            peso(campaign.goal)
+        );
+
+
+        /* =================================================
+           PROGRESS
+        ================================================= */
+
+        let progress =
+            Number(
+                campaign.progress
+            ) || 0;
+
+
+        progress =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    progress
+                )
+            );
+
+
+        setText(
+            "progressPercent",
+            progress + "%"
+        );
+
+
+        const fillWrapper =
+            document.getElementById(
+                "fillWrapper"
+            );
+
+
+        if (fillWrapper) {
+
+            setTimeout(() => {
+
+                fillWrapper.style.height =
+                    progress + "%";
+
+            }, 100);
+
+        }
+
+
+        /* =================================================
+           CAMPAIGN INFORMATION
+        ================================================= */
+
+        setText(
+            "campaignName",
+            campaign.campaignName ||
+            "ARISE"
+        );
+
+
+        setText(
+            "churchName",
+            campaign.churchName ||
+            "COG Dabubu Grande"
+        );
+
+
+        setText(
+            "lastUpdated",
+            campaign.lastUpdated ||
+            "Updated"
+        );
+
+
+        /* =================================================
+           MONTHLY CONTRIBUTIONS
+        ================================================= */
+
+        loadMonthlyTable(
+            data.monthly || []
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Campaign Error:",
+            error
+        );
+
+
+        hideLoading();
+
+
+        const monthlyTable =
+            document.getElementById(
+                "monthlyTable"
+            );
+
+
+        if (monthlyTable) {
+
+            monthlyTable.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="2"
+                        class="text-center text-red-400 py-10"
+                    >
+
+                        Unable to load campaign data.
+
+                        <br>
+
+                        <span
+                            class="text-gray-500 text-sm"
+                        >
+
+                            ${safeText(
+                                error.message
+                            )}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   MONTHLY TABLE
+========================================================= */
+
+function loadMonthlyTable(monthly) {
+
+    const tbody =
+        document.getElementById(
+            "monthlyTable"
+        );
+
+
+    if (!tbody) {
+
+        return;
+
+    }
+
+
+    if (
+        !Array.isArray(monthly) ||
+        monthly.length === 0
+    ) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="2"
+                    class="text-center text-gray-500 py-10"
+                >
+
+                    No monthly contribution data.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        monthly.map(
+            item => `
+
+                <tr>
+
+                    <td>
+
+                        ${safeText(
+                            item.month
+                        )}
+
+                    </td>
+
+                    <td
+                        class="text-right"
+                    >
+
+                        ${peso(
+                            item.total
+                        )}
+
+                    </td>
+
+                </tr>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   LOAD MEMBERS
+========================================================= */
+
+async function loadMembers() {
+
+    const tbody =
+        document.getElementById(
+            "membersTableBody"
+        );
+
+
+    if (!tbody) {
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="7"
+                class="text-center text-gray-500 py-12"
+            >
+
+                Loading members...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                MEMBERS_API_URL +
+                "&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Members API Response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load members."
+            );
+
+        }
+
+
+        allMembers =
+            Array.isArray(
+                data.members
+            )
+                ? data.members
+                : [];
+
+
+        updateMemberSummary(
+            allMembers
+        );
+
+
+        renderMembers(
+            allMembers
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Members Error:",
+            error
+        );
+
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="text-center text-red-400 py-12"
+                >
+
+                    Unable to load members.
+
+                    <br>
+
+                    <span
+                        class="text-gray-500 text-sm"
+                    >
+
+                        ${safeText(
+                            error.message
+                        )}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   MEMBER SUMMARY
+========================================================= */
+
+function updateMemberSummary(members) {
+
+    const totalMembers =
+        members.length;
+
+
+    const totalPledged =
+        members.reduce(
+            (
+                sum,
+                member
+            ) => {
+
+                return sum +
+                    Number(
+                        member.totalPledge ||
+                        0
+                    );
+
+            },
+            0
+        );
+
+
+    const totalContributions =
+        members.reduce(
+            (
+                sum,
+                member
+            ) => {
+
+                return sum +
+                    Number(
+                        member.totalContributions ||
+                        0
+                    );
+
+            },
+            0
+        );
+
+
+    const totalRemaining =
+        members.reduce(
+            (
+                sum,
+                member
+            ) => {
+
+                return sum +
+                    Number(
+                        member.remainingBalance ||
+                        0
+                    );
+
+            },
+            0
+        );
+
+
+    setText(
+        "memberTotalCount",
+        totalMembers
+    );
+
+
+    setText(
+        "memberTotalPledged",
+        peso(totalPledged)
+    );
+
+
+    setText(
+        "memberTotalContributions",
+        peso(totalContributions)
+    );
+
+
+    setText(
+        "memberTotalRemaining",
+        peso(totalRemaining)
+    );
+
+}
+
+/* =========================================================
+   RENDER MEMBERS TABLE
+========================================================= */
+
+function renderMembers(members) {
+
+    const tbody =
+        document.getElementById(
+            "membersTableBody"
+        );
+
+
+    if (!tbody) {
+
+        return;
+
+    }
+
+
+    if (
+        !members ||
+        members.length === 0
+    ) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="text-center text-gray-500 py-12"
+                >
+
+                    No members found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        members.map(
+            member => {
+
+                const code =
+                    safeText(
+                        member.ariseCode || "—"
+                    );
+
+
+                const name =
+                    safeText(
+                        member.memberName || "—"
+                    );
+
+
+                const tier =
+                    safeText(
+                        member.tier || "—"
+                    );
+
+
+                const pledged =
+                    Number(
+                        member.totalPledge || 0
+                    );
+
+
+                const frequency =
+                    "—";
+
+
+                return `
+
+                    <tr
+                        class="
+                            border-b
+                            border-gray-800
+                            hover:bg-white/5
+                            transition
+                        "
+                    >
+
+                        <!-- ARISE CODE -->
+
+                        <td
+                            class="
+                                gold
+                                font-semibold
+                                whitespace-nowrap
+                            "
+                        >
+
+                            ${code}
+
+                        </td>
+
+
+                        <!-- MEMBER NAME -->
+
+                        <td>
+
+                            <span
+                                class="font-medium"
+                            >
+
+                                ${name}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- TIER -->
+
+                        <td>
+
+                            <span
+                                class="
+                                    inline-flex
+                                    items-center
+                                    px-3
+                                    py-1
+                                    rounded-full
+                                    text-xs
+                                    font-semibold
+                                    bg-yellow-500/10
+                                    text-yellow-400
+                                    border
+                                    border-yellow-500/20
+                                "
+                            >
+
+                                ${tier}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- PLEDGE -->
+
+                        <td
+                            class="
+                                text-right
+                                font-semibold
+                                whitespace-nowrap
+                            "
+                        >
+
+                            ${peso(pledged)}
+
+                        </td>
+
+
+                        <!-- FREQUENCY -->
+
+                        <td>
+
+                            —
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <button
+                                type="button"
+                                onclick="viewMember('${code}')"
+                                class="
+                                    inline-flex
+                                    items-center
+                                    px-3
+                                    py-1
+                                    rounded-full
+                                    text-xs
+                                    font-semibold
+                                    bg-green-500/10
+                                    text-green-400
+                                    border
+                                    border-green-500/20
+                                    hover:bg-green-500/20
+                                    hover:border-green-500/40
+                                    transition
+                                    cursor-pointer
+                                "
+                                title="View member details"
+                            >
+
+                                Active
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   MEMBER SEARCH
+========================================================= */
+
+function filterMembers() {
+
+    const searchInput =
+        document.getElementById(
+            "memberSearch"
+        );
+
+
+    const tierInput =
+        document.getElementById(
+            "memberTierFilter"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
+
+
+    const tier =
+        tierInput
+            ? tierInput.value
+                .toLowerCase()
+                .trim()
+            : "";
+
+
+    const filtered =
+        allMembers.filter(
+            member => {
+
+                const code =
+                    String(
+                        member.ariseCode ||
+                        ""
+                    ).toLowerCase();
+
+
+                const name =
+                    String(
+                        member.memberName ||
+                        ""
+                    ).toLowerCase();
+
+
+                const memberTier =
+                    String(
+                        member.tier ||
+                        ""
+                    ).toLowerCase();
+
+
+                const matchesSearch =
+                    !search ||
+                    code.includes(search) ||
+                    name.includes(search);
+
+
+                const matchesTier =
+                    !tier ||
+                    memberTier === tier;
+
+
+                return (
+                    matchesSearch &&
+                    matchesTier
+                );
+
+            }
+        );
+
+
+    renderMembers(
+        filtered
+    );
+
+}
+
+
+/* =========================================================
+   VIEW MEMBER DETAILS
+========================================================= */
+
+function viewMember(ariseCode) {
+
+    currentMemberCode = ariseCode;
+
+    const member =
+        allMembers.find(
+            item =>
+                String(
+                    item.ariseCode
+                ) ===
+                String(
+                    ariseCode
+                )
+        );
+
+
+    if (!member) {
+
+        alert(
+            "Member information not found."
+        );
+
+        return;
+
+    }
+
+
+    const pledged =
+        Number(
+            member.totalPledge || 0
+        );
+
+
+    const contributions =
+        Number(
+            member.totalContributions || 0
+        );
+
+
+    const remaining =
+        Number(
+            member.remainingBalance || 0
+        );
+
+
+    let progress =
+        Number(
+            member.progress || 0
+        );
+
+
+    progress =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                progress
+            )
+        );
+
+
+    setText(
+        "memberDetailName",
+        member.memberName || "—"
+    );
+
+
+    setText(
+        "memberDetailCode",
+        member.ariseCode || "—"
+    );
+
+
+    setText(
+        "memberDetailTier",
+        member.tier || "—"
+    );
+
+
+    setText(
+        "memberDetailPledged",
+        peso(pledged)
+    );
+
+
+    setText(
+        "memberDetailContributions",
+        peso(contributions)
+    );
+
+
+    setText(
+        "memberDetailRemaining",
+        peso(remaining)
+    );
+
+
+    setText(
+        "memberDetailProgressText",
+        progress + "%"
+    );
+
+
+    setText(
+        "memberDetailUpdated",
+        member.lastUpdated || "—"
+    );
+
+
+    const progressBar =
+        document.getElementById(
+            "memberDetailProgressBar"
+        );
+
+
+    if (progressBar) {
+
+        progressBar.style.width =
+            "0%";
+
+
+        setTimeout(
+            () => {
+
+                progressBar.style.width =
+                    progress + "%";
+
+            },
+            50
+        );
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "memberDetailsModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "hidden"
+        );
+
+        modal.classList.add(
+            "flex"
+        );
+
+    }
+
+}
+async function resetMemberPassword() {
+
+    if (!currentMemberCode) {
+
+        alert("No member selected.");
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to reset this member's password?\n\n" +
+            "A new temporary password will be generated."
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const resetUrl =
+            API_BASE_URL +
+            "?action=resetMemberPassword" +
+            "&code=" +
+            encodeURIComponent(
+                currentMemberCode
+            );
+
+
+        console.log(
+            "Reset Password URL:",
+            resetUrl
+        );
+
+
+        const response =
+            await fetch(
+                resetUrl
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Reset Password Response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            alert(
+                data.message ||
+                "Unable to reset password."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "PASSWORD RESET SUCCESSFUL!\n\n" +
+
+            "ARISE Code: " +
+            (data.ariseCode || currentMemberCode) +
+            "\n\n" +
+
+            "Temporary Password: " +
+            (data.temporaryPassword || "Not available") +
+            "\n\n" +
+
+            "Please give this password to the member privately.\n\n" +
+
+            "IMPORTANT: This temporary password will not be shown again."
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Password Reset Error:",
+            error
+        );
+
+
+        alert(
+            "Unable to reset password.\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+/* =========================================================
+   CLOSE MEMBER DETAILS
+========================================================= */
+
+function closeMemberDetails() {
+
+    const modal =
+        document.getElementById(
+            "memberDetailsModal"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    modal.classList.add(
+        "hidden"
+    );
+
+    modal.classList.remove(
+        "flex"
+    );
+
+}
+
+
+/* =========================================================
+   NEW MEMBER — OPEN MODAL
+========================================================= */
+
+function openNewMember() {
+
+    const modal =
+        document.getElementById(
+            "newMemberModal"
+        );
+
+    if (!modal) {
+
+        console.error(
+            "newMemberModal was not found."
+        );
+
+        return;
+
+    }
+
+
+    /* Clear previous values */
+
+    const name =
+        document.getElementById(
+            "newMemberName"
+        );
+
+    const pledge =
+        document.getElementById(
+            "newMemberPledge"
+        );
+
+    const tier =
+        document.getElementById(
+            "newMemberTier"
+        );
+
+    const error =
+        document.getElementById(
+            "newMemberError"
+        );
+
+
+    if (name) {
+
+        name.value = "";
+
+    }
+
+
+    if (pledge) {
+
+        pledge.value = "";
+
+    }
+
+
+    if (tier) {
+
+        tier.value = "";
+
+    }
+
+
+    if (error) {
+
+        error.textContent = "";
+
+        error.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    /* Show modal */
+
+    modal.classList.remove(
+        "hidden"
+    );
+
+    modal.classList.add(
+        "flex"
+    );
+
+
+    /* Focus name */
+
+    setTimeout(
+        () => {
+
+            if (name) {
+
+                name.focus();
+
+            }
+
+        },
+        100
+    );
+
+}
+
+/* =========================================================
+   NEW MEMBER — CLOSE MODAL
+========================================================= */
+
+function closeNewMember() {
+
+    const modal =
+        document.getElementById(
+            "newMemberModal"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    modal.classList.add(
+        "hidden"
+    );
+
+    modal.classList.remove(
+        "flex"
+    );
+
+}
+
+
+/* =========================================================
+   NEW MEMBER — SUBMIT
+========================================================= */
+
+async function submitNewMember() {
+
+    const nameInput =
+        document.getElementById(
+            "newMemberName"
+        );
+
+    const pledgeInput =
+        document.getElementById(
+            "newMemberPledge"
+        );
+
+    const tierInput =
+        document.getElementById(
+            "newMemberTier"
+        );
+
+    const errorBox =
+        document.getElementById(
+            "newMemberError"
+        );
+
+    const saveButton =
+        document.getElementById(
+            "saveNewMemberButton"
+        );
+
+
+    const memberName =
+        nameInput
+            ? nameInput.value.trim()
+            : "";
+
+
+    const totalPledge =
+        pledgeInput
+            ? Number(
+                pledgeInput.value
+              )
+            : 0;
+
+
+    const tier =
+        tierInput
+            ? tierInput.value.trim()
+            : "";
+
+
+    /* =====================================================
+       VALIDATION
+    ===================================================== */
+
+    if (!memberName) {
+
+        showNewMemberError(
+            "Please enter the member name."
+        );
+
+        if (nameInput) {
+            nameInput.focus();
+        }
+
+        return;
+
+    }
+
+
+    if (
+        !Number.isFinite(
+            totalPledge
+        ) ||
+        totalPledge < 0
+    ) {
+
+        showNewMemberError(
+            "Please enter a valid pledge amount."
+        );
+
+        if (pledgeInput) {
+            pledgeInput.focus();
+        }
+
+        return;
+
+    }
+
+
+    if (!tier) {
+
+        showNewMemberError(
+            "Please select a pledge tier."
+        );
+
+        if (tierInput) {
+            tierInput.focus();
+        }
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       LOADING STATE
+    ===================================================== */
+
+    if (saveButton) {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Adding...";
+
+        saveButton.classList.add(
+            "opacity-60",
+            "cursor-not-allowed"
+        );
+
+    }
+
+
+    if (errorBox) {
+
+        errorBox.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    try {
+
+        /* =================================================
+           BUILD REQUEST
+        ================================================= */
+
+        const params =
+            new URLSearchParams();
+
+
+        params.append(
+            "action",
+            "addMember"
+        );
+
+
+        params.append(
+            "memberName",
+            memberName
+        );
+
+
+        params.append(
+            "totalPledge",
+            totalPledge
+        );
+
+
+        params.append(
+            "tier",
+            tier
+        );
+
+
+        /* =================================================
+           SEND TO GOOGLE APPS SCRIPT
+        ================================================= */
+
+        const response =
+            await fetch(
+                API_BASE_URL +
+                "?" +
+                params.toString() +
+                "&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Add Member Response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to add member."
+            );
+
+        }
+
+
+        /* =================================================
+           GET NEW MEMBER INFORMATION
+        ================================================= */
+
+        const newCode =
+            data.member &&
+            data.member.ariseCode
+                ? data.member.ariseCode
+                : "";
+
+
+        const temporaryPassword =
+            data.temporaryPassword
+                ? data.temporaryPassword
+                : "";
+
+
+        /* =================================================
+           CLOSE ADD MEMBER MODAL
+        ================================================= */
+
+        closeNewMember();
+
+
+        /* =================================================
+           RELOAD MEMBER LIST
+        ================================================= */
+
+        await loadMembersDashboard();
+
+
+        /* =================================================
+           ALSO UPDATE LOCAL MEMBER DATA
+        ================================================= */
+
+        try {
+
+            const membersResponse =
+                await fetch(
+                    MEMBERS_DASHBOARD_URL +
+                    "&_=" +
+                    Date.now(),
+                    {
+                        method: "GET",
+                        cache: "no-store"
+                    }
+                );
+
+
+            const membersData =
+                await membersResponse.json();
+
+
+            if (
+                membersData.success &&
+                Array.isArray(
+                    membersData.members
+                )
+            ) {
+
+                allMembers =
+                    membersData.members;
+
+
+                updateMemberSummary(
+                    allMembers
+                );
+
+
+                renderMembers(
+                    allMembers
+                );
+
+            }
+
+        }
+        catch (refreshError) {
+
+            console.warn(
+                "Member refresh warning:",
+                refreshError
+            );
+
+        }
+
+
+        /* =================================================
+           SHOW LOGIN CREDENTIALS
+        ================================================= */
+
+        if (
+            newCode &&
+            temporaryPassword
+        ) {
+
+            alert(
+
+                "MEMBER SUCCESSFULLY ADDED!" +
+
+                "\n\nARISE Code: " +
+                newCode +
+
+                "\nTemporary Password: " +
+                temporaryPassword +
+
+                "\n\nPlease give these login details " +
+                "to the member privately." +
+
+                "\n\nIMPORTANT: The temporary password " +
+                "will not be shown again."
+
+            );
+
+        }
+        else {
+
+            alert(
+
+                "Member successfully added!" +
+
+                (
+                    newCode
+                        ? "\n\nARISE Code: " +
+                          newCode
+                        : ""
+                )
+
+            );
+
+        }
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Add Member Error:",
+            error
+        );
+
+
+        showNewMemberError(
+            error.message ||
+            "Unable to add member."
+        );
+
+    }
+    finally {
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Add Member";
+
+            saveButton.classList.remove(
+                "opacity-60",
+                "cursor-not-allowed"
+            );
+
+        }
+
+    }
+
+}
+
+/* =========================================================
+   NEW MEMBER — ERROR
+========================================================= */
+
+function showNewMemberError(
+    message
+) {
+
+    const errorBox =
+        document.getElementById(
+            "newMemberError"
+        );
+
+
+    if (!errorBox) {
+
+        return;
+
+    }
+
+
+    errorBox.textContent =
+        message || "Something went wrong.";
+
+
+    errorBox.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   HELPER — SET TEXT
+========================================================= */
+
+function setText(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    element.textContent =
+        value;
+
+}
+
+
+/* =========================================================
+   HIDE LOADING SCREEN
+========================================================= */
+
+function hideLoading() {
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    if (!loading) {
+
+        return;
+
+    }
+
+
+    loading.style.opacity =
+        "0";
+
+
+    loading.style.transition =
+        "opacity .4s ease";
+
+
+    setTimeout(
+        () => {
+
+            loading.style.display =
+                "none";
+
+        },
+        400
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH EVENTS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const search =
+            document.getElementById(
+                "memberSearch"
+            );
+
+
+        const tier =
+            document.getElementById(
+                "memberTierFilter"
+            );
+
+
+        if (search) {
+
+            search.addEventListener(
+                "input",
+                filterMembers
+            );
+
+        }
+
+
+        if (tier) {
+
+            tier.addEventListener(
+                "change",
+                filterMembers
+            );
+
+        }
+
+    }
+);
+
+/* =========================================================
+   CASHIER
+========================================================= */
+
+let cashierMember = null;
+
+
+/* =========================================================
+   LOOKUP CASHIER MEMBER
+========================================================= */
+
+async function lookupCashierMember() {
+
+    const codeInput =
+        document.getElementById("cashierAriseCode");
+
+    const code =
+        codeInput
+            ? codeInput.value.trim()
+            : "";
+
+    const memberInfo =
+        document.getElementById("cashierMemberInfo");
+
+    const emptyState =
+        document.getElementById("cashierEmptyState");
+
+    const errorBox =
+        document.getElementById("cashierError");
+
+    const saveButton =
+        document.getElementById(
+            "saveContributionButton"
+        );
+
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    if (errorBox) {
+
+        errorBox.classList.add("hidden");
+
+        errorBox.textContent = "";
+
+    }
+
+    if (memberInfo) {
+
+        memberInfo.classList.add("hidden");
+
+    }
+
+    if (saveButton) {
+
+        saveButton.disabled = true;
+
+    }
+
+
+    if (!code) {
+
+        showCashierError(
+            "Please enter an ARISE Code."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        /* =================================================
+           USE THE EXISTING MEMBER LOOKUP URL
+        ================================================= */
+
+        const url =
+            MEMBER_LOOKUP_URL +
+            "&code=" +
+            encodeURIComponent(code) +
+            "&_=" +
+            Date.now();
+
+
+        console.log(
+            "Cashier Request:",
+            url
+        );
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Cashier Response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Member not found."
+            );
+
+        }
+
+
+        const member =
+            data.member;
+
+
+        if (!member) {
+
+            throw new Error(
+                "Member information was not returned."
+            );
+
+        }
+
+
+        /* =================================================
+           MEMBER INFORMATION
+        ================================================= */
+
+        setText(
+            "cashierMemberName",
+            member.memberName || "—"
+        );
+
+
+        setText(
+            "cashierMemberTier",
+            member.tier || "—"
+        );
+
+
+        /* =================================================
+           FINANCIAL INFORMATION
+        ================================================= */
+
+        const pledge =
+            Number(
+                member.totalPledge
+            ) || 0;
+
+
+        const contribution =
+            Number(
+                member.totalContributions
+            ) || 0;
+
+
+        const remaining =
+            Number(
+                member.remainingBalance
+            ) || 0;
+
+
+        setText(
+            "cashierPledge",
+            peso(pledge)
+        );
+
+
+        setText(
+            "cashierContribution",
+            peso(contribution)
+        );
+
+
+        setText(
+            "cashierRemaining",
+            peso(remaining)
+        );
+
+
+        /* =================================================
+           STORE MEMBER
+        ================================================= */
+
+        window.cashierMember =
+            member;
+
+
+        /* =================================================
+           SHOW MEMBER
+        ================================================= */
+
+        if (memberInfo) {
+
+            memberInfo.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        if (emptyState) {
+
+            emptyState.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           DATE
+        ================================================= */
+
+        const now =
+            new Date();
+
+
+        setText(
+            "cashierDate",
+            now.toLocaleDateString(
+                "en-PH",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            )
+        );
+
+
+        /* =================================================
+           CLEAR PREVIOUS AMOUNT
+        ================================================= */
+
+        const amountInput =
+            document.getElementById(
+                "cashierAmount"
+            );
+
+
+        if (amountInput) {
+
+            amountInput.value = "";
+
+        }
+
+
+        const preview =
+            document.getElementById(
+                "cashierPreview"
+            );
+
+
+        if (preview) {
+
+            preview.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           ENABLE SAVE
+        ================================================= */
+
+        if (saveButton) {
+
+            saveButton.disabled = false;
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Cashier Lookup Error:",
+            error
+        );
+
+
+        if (emptyState) {
+
+            emptyState.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        showCashierError(
+            error.message ||
+            "Unable to connect to the database."
+        );
+
+    }
+
+}
+
+/* =========================================================
+   CASHIER — CONTRIBUTION PREVIEW
+========================================================= */
+
+function updateCashierPreview() {
+
+    const member =
+        window.cashierMember;
+
+
+    const amountInput =
+        document.getElementById(
+            "cashierAmount"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "cashierPreview"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveContributionButton"
+        );
+
+
+    if (
+        !member ||
+        !amountInput ||
+        !preview ||
+        !saveButton
+    ) {
+
+        return;
+
+    }
+
+
+    const amount =
+        Number(
+            amountInput.value
+        ) || 0;
+
+
+    const pledge =
+        Number(
+            member.totalPledge
+        ) || 0;
+
+
+    const currentContribution =
+        Number(
+            member.totalContributions
+        ) || 0;
+
+
+    const currentBalance =
+        Number(
+            member.remainingBalance
+        ) || 0;
+
+
+    /* =====================================================
+       INVALID AMOUNT
+    ===================================================== */
+
+    if (
+        amount <= 0
+    ) {
+
+        preview.classList.add(
+            "hidden"
+        );
+
+        saveButton.disabled = true;
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       CALCULATE NEW VALUES
+    ===================================================== */
+
+    const newContribution =
+        currentContribution +
+        amount;
+
+
+    const newRemaining =
+        Math.max(
+            0,
+            pledge -
+            newContribution
+        );
+
+
+    let newProgress =
+        pledge > 0
+            ? (
+                newContribution /
+                pledge
+            ) * 100
+            : 0;
+
+
+    newProgress =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                newProgress
+            )
+        );
+
+
+    /* =====================================================
+       UPDATE PREVIEW
+    ===================================================== */
+
+    setText(
+        "previewCurrentBalance",
+        peso(currentBalance)
+    );
+
+
+    setText(
+        "previewContribution",
+        peso(amount)
+    );
+
+
+    setText(
+        "previewRemaining",
+        peso(newRemaining)
+    );
+
+
+    setText(
+        "previewProgress",
+        newProgress.toFixed(1) + "%"
+    );
+
+
+    /* =====================================================
+       SHOW PREVIEW
+    ===================================================== */
+
+    preview.classList.remove(
+        "hidden"
+    );
+
+
+    /* =====================================================
+       ENABLE SAVE
+    ===================================================== */
+
+    saveButton.disabled = false;
+
+}
+
+
+/* =========================================================
+   CASHIER — AMOUNT INPUT EVENT
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const amountInput =
+            document.getElementById(
+                "cashierAmount"
+            );
+
+
+        if (amountInput) {
+
+            amountInput.addEventListener(
+                "input",
+                updateCashierPreview
+            );
+
+        }
+
+    }
+);
+
+/* =========================================================
+   CASHIER PREVIEW
+========================================================= */
+
+function updateCashierPreview() {
+
+    if (!cashierMember) {
+
+        return;
+
+    }
+
+
+    const amountInput =
+        document.getElementById(
+            "cashierAmount"
+        );
+
+
+    const amount =
+        amountInput
+            ? Number(amountInput.value) || 0
+            : 0;
+
+
+    const currentBalance =
+        Number(
+            cashierMember.balance
+        ) || 0;
+
+
+    const pledge =
+        Number(
+            cashierMember.pledge
+        ) || 0;
+
+
+    const currentContribution =
+        Number(
+            cashierMember.contribution
+        ) || 0;
+
+
+    const newRemaining =
+        Math.max(
+            0,
+            currentBalance - amount
+        );
+
+
+    const newContribution =
+        currentContribution +
+        amount;
+
+
+    const newProgress =
+        pledge > 0
+            ? Math.min(
+                100,
+                (
+                    newContribution /
+                    pledge
+                ) * 100
+            )
+            : 0;
+
+
+    const preview =
+        document.getElementById(
+            "cashierPreview"
+        );
+
+
+    if (
+        amount > 0
+    ) {
+
+        if (preview) {
+
+            preview.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        setText(
+            "previewCurrentBalance",
+            peso(currentBalance)
+        );
+
+
+        setText(
+            "previewContribution",
+            peso(amount)
+        );
+
+
+        setText(
+            "previewRemaining",
+            peso(newRemaining)
+        );
+
+
+        setText(
+            "previewProgress",
+            newProgress.toFixed(1) +
+            "%"
+        );
+
+    }
+    else {
+
+        if (preview) {
+
+            preview.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveContributionButton"
+        );
+
+
+    if (saveButton) {
+
+        saveButton.disabled =
+            !cashierMember ||
+            amount <= 0;
+
+    }
+
+}
+
+/* =========================================================
+   SAVE CASHIER CONTRIBUTION
+========================================================= */
+
+async function processCashierContribution() {
+
+    if (!window.cashierMember) {
+
+        showCashierError(
+            "Please search for a member first."
+        );
+
+        return;
+
+    }
+
+    if (window.cashierSaving) {
+
+        console.warn(
+            "Contribution save already in progress."
+        );
+
+        return;
+
+    }
+
+    window.cashierSaving = true;
+
+    const amountInput =
+        document.getElementById(
+            "cashierAmount"
+        );
+
+
+    const amount =
+        amountInput
+            ? Number(amountInput.value)
+            : 0;
+
+
+    if (
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ) {
+
+        showCashierError(
+            "Please enter a valid contribution amount."
+        );
+
+        return;
+
+    }
+
+
+    const pledge =
+        Number(
+            window.cashierMember.totalPledge
+        ) || 0;
+
+
+    const currentContribution =
+        Number(
+            window.cashierMember.totalContributions
+        ) || 0;
+
+
+    const currentBalance =
+        Number(
+            window.cashierMember.remainingBalance
+        ) || 0;
+
+
+    if (amount > currentBalance) {
+
+        const confirmOver =
+            confirm(
+                "This contribution is greater than the remaining balance.\n\n" +
+                "Remaining Balance: " +
+                peso(currentBalance) +
+                "\n" +
+                "Contribution: " +
+                peso(amount) +
+                "\n\n" +
+                "Do you want to continue?"
+            );
+
+
+        if (!confirmOver) {
+
+            return;
+
+        }
+
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveContributionButton"
+        );
+
+
+    if (saveButton) {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+    }
+
+
+    const errorBox =
+        document.getElementById(
+            "cashierError"
+        );
+
+
+    if (errorBox) {
+
+        errorBox.classList.add(
+            "hidden"
+        );
+
+        errorBox.textContent = "";
+
+    }
+
+/* CREATE A NEW SAVE REQUEST ID FOR EVERY CONTRIBUTION */
+const saveRequestId = crypto.randomUUID();
+
+    try {
+
+        /* =================================================
+           SAVE TO GOOGLE APPS SCRIPT
+        ================================================= */
+
+        const url =
+            API_BASE_URL +
+            "?action=saveContribution" +
+            "&ariseCode=" +
+            encodeURIComponent(
+                window.cashierMember.ariseCode
+            ) +
+            "&amount=" +
+            encodeURIComponent(
+                amount
+            ) +
+            "&requestId=" +
+            encodeURIComponent(
+                saveRequestId
+            ) +
+            "&_=" +
+              Date.now();
+
+
+        console.log(
+            "Saving contribution:",
+            url
+        );
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Save Contribution Response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to save contribution."
+            );
+
+        }
+
+
+        /* =================================================
+           SERVER RETURNED UPDATED VALUES
+        ================================================= */
+
+        const saved =
+            data.contribution || {};
+
+
+        const newContribution =
+            Number(
+                saved.totalContributions
+            ) || 0;
+
+
+        const newBalance =
+            Number(
+                saved.remainingBalance
+            ) || 0;
+
+
+        const newProgress =
+            Number(
+                saved.progress
+            ) || 0;
+
+
+        /* =================================================
+           UPDATE CASHIER MEMBER OBJECT
+        ================================================= */
+
+        window.cashierMember.totalContributions =
+            newContribution;
+
+
+        window.cashierMember.remainingBalance =
+            newBalance;
+
+
+        window.cashierMember.progress =
+            newProgress;
+
+
+        /* =================================================
+           UPDATE DISPLAY
+        ================================================= */
+
+        setText(
+            "cashierContribution",
+            peso(newContribution)
+        );
+
+
+        setText(
+            "cashierRemaining",
+            peso(newBalance)
+        );
+
+
+        setText(
+            "previewCurrentBalance",
+            peso(currentBalance)
+        );
+
+
+        setText(
+            "previewContribution",
+            peso(amount)
+        );
+
+
+        setText(
+            "previewRemaining",
+            peso(newBalance)
+        );
+
+
+        setText(
+            "previewProgress",
+            newProgress.toFixed(1) +
+            "%"
+        );
+
+
+        /* =================================================
+           TRANSACTION INFORMATION
+        ================================================= */
+
+        setText(
+            "cashierDate",
+            saved.date || "—"
+        );
+
+
+        setText(
+            "cashierTransactionId",
+            saved.transactionId || "—"
+        );
+
+
+        setText(
+            "cashierReceiptNo",
+            saved.receiptNo || "—"
+        );
+
+
+        setText(
+            "cashierOrNo",
+            saved.orNo || "—"
+        );
+
+
+        /* =================================================
+         SUCCESS DISPLAY
+        ================================================= */
+
+        showCashierSuccess(data);
+
+        /* =================================================
+           CLEAR AMOUNT
+        ================================================= */
+
+        if (amountInput) {
+
+            amountInput.value = "";
+
+        }
+
+
+        const preview =
+            document.getElementById(
+                "cashierPreview"
+            );
+
+
+        if (preview) {
+
+            preview.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+        /* =================================================
+           REFRESH RECENT CONTRIBUTIONS
+        ================================================= */
+
+        if (
+            typeof loadCashierRecentContributions ===
+            "function"
+        ) {
+
+            loadCashierRecentContributions();
+
+        }
+
+
+        /* =================================================
+           REFRESH DASHBOARD DATA
+        ================================================= */
+
+        if (
+            typeof loadMembersDashboard ===
+            "function"
+        ) {
+
+            loadMembersDashboard();
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Save Contribution Error:",
+            error
+        );
+
+
+        showCashierError(
+            error.message ||
+            "Unable to save contribution."
+        );
+
+    }
+    finally {
+
+        // Allow the next legitimate contribution
+        window.cashierSaving = false;
+
+        if (saveButton) {
+
+            saveButton.disabled = false;
+
+            saveButton.textContent =
+                "💾 Save Contribution";
+
+        }
+
+    }
+
+}
+
+/* =================================================
+   PREPARE FOR NEXT CONTRIBUTION
+================================================= */
+
+window.cashierSaveRequestId = null;
+
+
+/* =========================================================
+   CASHIER ERROR
+========================================================= */
+
+function showCashierError(message) {
+
+    const errorBox =
+        document.getElementById(
+            "cashierError"
+        );
+
+
+    if (!errorBox) {
+
+        return;
+
+    }
+
+
+    errorBox.textContent =
+        message;
+
+
+    errorBox.classList.remove(
+        "hidden"
+    );
+
+}
+
+/* =========================================================
+   SHOW CASHIER SUCCESS
+========================================================= */
+
+function showCashierSuccess(data) {
+
+    const successBox =
+        document.getElementById("cashierSuccess");
+
+    const successMessage =
+        document.getElementById("cashierSuccessMessage");
+
+    const contribution =
+        data && data.contribution
+            ? data.contribution
+            : {};
+
+    const receiptResponse =
+        data && data.receipt
+            ? data.receipt
+            : {};
+
+    const receipt =
+        receiptResponse && receiptResponse.receipt
+            ? receiptResponse.receipt
+            : {};
+      
+    console.log(
+        "CASHIER RECEIPT OBJECT:",
+        receipt
+    );
+
+    console.log(
+        "CASHIER RECEIPT PDF URL:",
+        receipt.pdfUrl
+    );
+
+
+    /* =========================================================
+       TRANSACTION INFORMATION
+    ========================================================= */
+
+    setText(
+        "cashierTransactionId",
+        contribution.transactionId || "—"
+    );
+
+    setText(
+        "cashierReceiptNo",
+        contribution.receiptNo || "—"
+    );
+
+    setText(
+        "cashierOrNo",
+        contribution.orNo || "—"
+    );
+
+
+    /* =========================================================
+       SUCCESS MESSAGE
+    ========================================================= */
+
+    if (successMessage) {
+
+        successMessage.innerHTML =
+            "Receipt No: <strong>" +
+            escapeHtml(
+                contribution.receiptNo || "—"
+            ) +
+            "</strong><br><br>" +
+
+            "OR No: <strong>" +
+            escapeHtml(
+                contribution.orNo || "—"
+            ) +
+            "</strong><br><br>" +
+
+            "Amount: <strong>" +
+            escapeHtml(
+                peso(contribution.amount || 0)
+            ) +
+            "</strong>";
+
+    }
+
+
+    /* =========================================================
+   RECEIPT BUTTON
+========================================================= */
+
+const receiptAction =
+    document.getElementById(
+        "cashierReceiptAction"
+    );
+
+const receiptLink =
+    document.getElementById(
+        "cashierReceiptLink"
+    );
+
+
+if (
+    receiptAction &&
+    receiptLink
+) {
+
+    /* =========================================
+       RECEIPT PDF AVAILABLE
+    ========================================= */
+
+    if (
+        receipt &&
+        receipt.pdfUrl
+    ) {
+
+        receiptLink.href =
+            receipt.pdfUrl;
+
+        receiptLink.target =
+            "_blank";
+
+        receiptLink.rel =
+            "noopener noreferrer";
+
+        receiptLink.textContent =
+            "🧾 View / Print Receipt";
+
+        receiptLink.classList.remove(
+            "hidden"
+        );
+
+        receiptAction.classList.remove(
+            "hidden"
+        );
+
+        console.log(
+            "Receipt PDF URL:",
+            receipt.pdfUrl
+        );
+
+    }
+
+
+    /* =========================================
+       RECEIPT PDF NOT AVAILABLE
+    ========================================= */
+
+    else {
+
+        receiptAction.classList.add(
+            "hidden"
+        );
+
+        console.warn(
+            "Receipt PDF URL was not returned.",
+            receipt
+        );
+
+    }
+
+}
+
+
+    /* =========================================================
+       SHOW SUCCESS BOX
+    ========================================================= */
+
+    if (successBox) {
+
+        successBox.classList.remove(
+            "hidden"
+        );
+
+        successBox.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "nearest"
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   CASHIER INPUT EVENTS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const amountInput =
+            document.getElementById(
+                "cashierAmount"
+            );
+
+
+        if (amountInput) {
+
+            amountInput.addEventListener(
+                "input",
+                updateCashierPreview
+            );
+
+        }
+
+
+        const codeInput =
+            document.getElementById(
+                "cashierAriseCode"
+            );
+
+
+        if (codeInput) {
+
+            codeInput.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        lookupCashierMember();
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   ARISE 5-YEAR PLEDGE REPORTS
+========================================================= */
+
+function initAriseReportSelectors() {
+    const monthSelect = document.getElementById("ariseReportMonth");
+    const yearSelect = document.getElementById("ariseReportYear");
+    if (!monthSelect || !yearSelect) return;
+
+    const now = new Date();
+    const monthNames = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+    ];
+
+    if (!monthSelect.options.length) {
+        monthNames.forEach((name, index) => {
+            const option = document.createElement("option");
+            option.value = index + 1;
+            option.textContent = name;
+            monthSelect.appendChild(option);
+        });
+        monthSelect.value = now.getMonth() + 1;
+    }
+
+    if (!yearSelect.options.length) {
+        const currentYear = now.getFullYear();
+        for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            yearSelect.appendChild(option);
+        }
+        yearSelect.value = currentYear;
+    }
+}
+
+function setReportText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+}
+
+function reportPercent(value) {
+    const n = Number(value || 0);
+    return (Math.round(n * 10) / 10).toLocaleString(undefined, { maximumFractionDigits: 1 }) + "%";
+}
+
+function setReportBar(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pct = Math.max(0, Math.min(100, Number(value || 0)));
+    el.style.width = pct + "%";
+}
+
+async function generateAriseReport() {
+    initAriseReportSelectors();
+
+    const month = document.getElementById("ariseReportMonth")?.value;
+    const year = document.getElementById("ariseReportYear")?.value;
+    const status = document.getElementById("ariseReportStatus");
+    if (!month || !year) return;
+
+    if (status) status.textContent = "Loading report...";
+
+    try {
+        const q = new URLSearchParams({
+            action: "reportData",
+            month: month,
+            year: year,
+            _: Date.now()
+        });
+
+        const response = await fetch(API_BASE_URL + "?" + q.toString(), {
+            method: "GET",
+            cache: "no-store"
+        });
+        if (!response.ok) throw new Error("Server returned " + response.status);
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.message || "Unable to generate report.");
+
+        const overview = data.overview || {};
+        const summary = data.contributionSummary || {};
+        const campaign = data.campaign || {};
+
+        setReportText("reportTotalPledgers", Number(overview.totalPledgers || 0).toLocaleString());
+        setReportText("reportNewMembers", Number(overview.newMembers || 0).toLocaleString());
+        setReportText("reportTotalPledged", peso(Number(overview.totalPledged || 0)));
+        setReportText("reportCollectedMonth", peso(Number(overview.collectedThisMonth || 0)));
+        setReportText("reportContributionCount", Number(overview.contributions || 0).toLocaleString());
+        setReportText("reportAverageContribution", peso(Number(overview.averageContribution || 0)));
+        setReportText("reportPledgeFulfillment", reportPercent(overview.pledgeFulfillment));
+        setReportBar("reportPledgeFulfillmentBar", overview.pledgeFulfillment);
+
+        setReportText("reportSummaryCount", Number(summary.totalContributions || 0).toLocaleString());
+        setReportText("reportSummaryAmount", peso(Number(summary.totalAmount || 0)));
+        setReportText("reportHighestContribution", peso(Number(summary.highestContribution || 0)));
+        setReportText("reportLowestContribution", peso(Number(summary.lowestContribution || 0)));
+        setReportText("reportSummaryAverage", peso(Number(summary.averageContribution || 0)));
+
+        setReportText("reportCampaignGoal", peso(Number(campaign.goal || 0)));
+        setReportText("reportCampaignPledged", peso(Number(campaign.totalPledged || 0)));
+        setReportText("reportCampaignCollected", peso(Number(campaign.totalCollected || 0)));
+        setReportText("reportRemainingPledge", peso(Number(campaign.remainingPledge || 0)));
+        setReportText("reportCampaignProgress", reportPercent(campaign.collectionProgress));
+        setReportBar("reportCampaignProgressBar", campaign.collectionProgress);
+
+        const tierTable = document.getElementById("reportTierTable");
+        const tiers = data.tiers || [];
+        if (tierTable) {
+            tierTable.innerHTML = tiers.length ? tiers.map(row => `
+                <tr>
+                    <td class="font-semibold">${escapeHtml(row.tier || "")}</td>
+                    <td>${Number(row.members || 0).toLocaleString()}</td>
+                    <td>${peso(Number(row.totalPledged || 0))}</td>
+                    <td>${peso(Number(row.collectedThisMonth || 0))}</td>
+                </tr>`).join("") : `<tr><td colspan="4" class="text-center text-gray-500 py-8">No tier data found.</td></tr>`;
+        }
+
+        const dailyTable = document.getElementById("reportDailyTable");
+        const daily = data.daily || [];
+        if (dailyTable) {
+            dailyTable.innerHTML = daily.length ? daily.map(row => `
+                <tr>
+                    <td>${escapeHtml(row.date || "")}</td>
+                    <td>${Number(row.contributions || 0).toLocaleString()}</td>
+                    <td>${peso(Number(row.amount || 0))}</td>
+                </tr>`).join("") : `<tr><td colspan="3" class="text-center text-gray-500 py-8">No contributions for this period.</td></tr>`;
+        }
+
+        if (status) {
+            const label = document.getElementById("ariseReportMonth")?.selectedOptions?.[0]?.textContent || month;
+            status.textContent = "Report generated for " + label + " " + year + ".";
+        }
+    }
+    catch (error) {
+        console.error("ARISE report error:", error);
+        if (status) status.textContent = "Unable to generate report: " + error.message;
+    }
+}
+
+function printAriseReport() {
+    const report = document.getElementById("ariseReportContent");
+    if (!report) return;
+
+    const printWindow = window.open("", "_blank", "width=1100,height=800");
+    if (!printWindow) {
+        alert("Please allow pop-ups so the report can be printed.");
+        return;
+    }
+
+    printWindow.document.write(`<!DOCTYPE html><html><head><title>ARISE 5-Year Pledge Report</title>
+        <style>
+            body{font-family:Arial,sans-serif;color:#111;padding:28px} .print\\:hidden{display:none!important}
+            table{width:100%;border-collapse:collapse;margin-bottom:22px} th,td{border:1px solid #ccc;padding:8px;text-align:left}
+            h1,h2{margin:16px 0 10px} .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+            .rounded-xl{border:1px solid #ddd;padding:12px;border-radius:8px}.text-gray-400{color:#555}.text-white{color:#111!important}
+        </style></head><body>${report.innerHTML}</body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+}
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        showPage(
+            "dashboard"
+        );
+
+
+        loadCampaign();
+
+    }
+);
+
+
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
+
+setInterval(
+    loadCampaign,
+    60000
+);
+
+
+setInterval(
+    () => {
+
+        const membersPage =
+            document.getElementById(
+                "membersPage"
+            );
+
+
+        if (
+            membersPage &&
+            membersPage.style.display !==
+            "none"
+        ) {
+
+            loadMembers();
+
+        }
+
+    },
+    60000
+);
+
+</script>
+
+</body>
+
+</html>
