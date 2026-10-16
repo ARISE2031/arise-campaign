@@ -828,10 +828,43 @@
 
     </style>
 
+
+<style id="ariseAdminLoginStyles">
+  body:not(.arise-admin-authenticated) .hero { visibility:hidden !important; }
+  #ariseAdminLogin { position:fixed; inset:0; z-index:999999; display:flex; align-items:center; justify-content:center; padding:24px; background:radial-gradient(ellipse at top,#292313 0%,#111 48%,#070707 100%); font-family:'Poppins',sans-serif; }
+  #ariseAdminLogin .login-card { width:100%; max-width:420px; padding:36px 30px; border:1px solid rgba(212,175,55,.45); border-radius:22px; background:rgba(18,18,18,.94); box-shadow:0 24px 80px rgba(0,0,0,.55); color:#f5f5f5; }
+  #ariseAdminLogin .login-mark { width:66px;height:66px;margin:0 auto 18px;border:1px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#D4AF37;font-family:'Cinzel',serif;font-size:23px;letter-spacing:2px; }
+  #ariseAdminLogin h1 { margin:0;text-align:center;font-family:'Cinzel',serif;font-size:25px;font-weight:700;letter-spacing:1px; }
+  #ariseAdminLogin .login-subtitle { text-align:center;color:#c4c4c4;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin:8px 0 28px; }
+  #ariseAdminLogin label { display:block;margin-bottom:8px;font-size:13px;color:#ddd; }
+  #ariseAdminLogin input { width:100%;padding:13px 14px;border:1px solid #49433a;border-radius:10px;background:#0c0c0c;color:white;outline:none; }
+  #ariseAdminLogin input:focus { border-color:#D4AF37;box-shadow:0 0 0 3px rgba(212,175,55,.13); }
+  #ariseAdminLogin button { width:100%;margin-top:18px;padding:13px;border:0;border-radius:10px;background:#D4AF37;color:#17130a;font-weight:700;letter-spacing:1px;cursor:pointer; }
+  #ariseAdminLogin button:disabled { opacity:.65;cursor:wait; }
+  #ariseAdminLogin .login-error { min-height:20px;margin-top:12px;color:#ff9c9c;font-size:12px;text-align:center; }
+  #ariseAdminLogin .login-note { margin-top:18px;color:#888;font-size:11px;text-align:center; }
+</style>
+
 </head>
 
 
 <body>
+
+<div id="ariseAdminLogin" role="dialog" aria-modal="true" aria-labelledby="ariseLoginTitle">
+  <div class="login-card">
+    <div class="login-mark">A</div>
+    <h1 id="ariseLoginTitle">ARISE ADMIN</h1>
+    <div class="login-subtitle">Advancing NextGen Church</div>
+    <form id="ariseAdminLoginForm">
+      <label for="ariseAdminPassword">Administrator password</label>
+      <input id="ariseAdminPassword" type="password" autocomplete="current-password" placeholder="Enter administrator password" required />
+      <button id="ariseAdminLoginButton" type="submit">SIGN IN SECURELY</button>
+      <div id="ariseAdminLoginError" class="login-error" aria-live="polite"></div>
+    </form>
+    <div class="login-note">Authorized administrators only · ARISE 5-Year Pledge Campaign</div>
+  </div>
+</div>
+
 
 <section class="hero">
 
@@ -2190,18 +2223,28 @@
 
         <!-- CLOSE -->
 
-        <div class="text-center mt-7">
+        <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mt-7">
 
             <button
                 type="button"
                 onclick="closeMemberDetails()"
-                class="px-6 py-3 rounded-xl border border-yellow-500/40 text-yellow-400 hover:bg-yellow-500 hover:text-black transition font-semibold"
+                class="px-6 py-3 rounded-xl border border-gray-700 text-gray-300 hover:border-yellow-500 hover:text-yellow-400 transition font-semibold"
             >
                 Close
+            </button>
+
+            <button
+                type="button"
+                onclick="generateMemberRecoveryCodeFromPortal()"
+                class="px-5 py-3 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-500/20 transition font-semibold"
+            >
+                GENERATE RECOVERY CODE
+            </button>
+
             <button
                 type="button"
                 onclick="resetMemberPassword()"
-                class="px-5 py-2 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-500/20 transition font-semibold"
+                class="px-5 py-3 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-500/20 transition font-semibold"
             >
                 RESET PASSWORD
             </button>
@@ -4170,106 +4213,45 @@ function changeContributionHistoryPage(direction) {
 
 }
 
+
 async function viewCashierReceipt(ariseCode, transactionId) {
+  const params = new URLSearchParams({
+    action: "generateReceipt",
+    ariseCode: ariseCode,
+    transactionId: transactionId
+  });
 
-    try {
+  const receiptUrl = API_BASE_URL + "?" + params.toString();
 
-        console.log(
-            "Opening receipt:",
-            ariseCode,
-            transactionId
-        );
+  // Open a blank tab immediately to avoid popup blocking.
+  const receiptWindow = window.open("about:blank", "_blank");
 
+  if (!receiptWindow) {
+    alert("Please allow pop-ups to open your receipt.");
+    return;
+  }
 
-        const params =
-            new URLSearchParams({
+  receiptWindow.document.write(
+    "<p style='font-family:Arial;padding:20px'>Loading ARISE receipt...</p>"
+  );
 
-                action: "generateReceipt",
+  try {
+    const response = await fetch(receiptUrl);
+    const data = await response.json();
 
-                ariseCode: ariseCode,
-
-                transactionId: transactionId,
-
-                _: Date.now()
-
-            });
-
-
-        const response =
-            await fetch(
-                API_BASE_URL +
-                "?" +
-                params.toString(),
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Server returned " +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Receipt response:",
-            data
-        );
-
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Unable to generate receipt."
-            );
-
-        }
-
-
-        /*
-         * TEMPORARY TEST
-         *
-         * We will use the returned receipt data
-         * to build the printable receipt next.
-         */
-
-        console.log(
-            "Receipt data:",
-            data
-        );
-
-
-        alert(
-            "Receipt loaded successfully."
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "View Receipt Error:",
-            error
-        );
-
-
-        alert(
-            error.message ||
-            "Unable to load receipt."
-        );
-
+    if (data.success && data.receipt && data.receipt.pdfUrl) {
+      receiptWindow.location.href = data.receipt.pdfUrl;
+    } else {
+      receiptWindow.close();
+      alert(data.message || "Unable to open the receipt.");
     }
-
+  } catch (error) {
+    receiptWindow.close();
+    alert(
+      "Unable to retrieve the receipt. Please check your connection and try again."
+    );
+    console.error("ARISE receipt error:", error);
+  }
 }
 
 /* =========================================================
@@ -4450,6 +4432,60 @@ async function loadCashierRecentContributions() {
 
 const API_BASE_URL =
     "https://script.google.com/macros/s/AKfycbzZ2p0c_3pZ2sxyUfACpXZJVo83zPSPLvnceYl8V7VYTGfSqkp4zpomrRn_vkYUaiQy/exec";
+
+
+/* =========================================================
+   ADMINISTRATOR LOGIN
+   Requires the Apps Script adminLogin POST handler.
+========================================================= */
+let ariseAdminToken = "";
+
+function ariseAdminPost(payload) {
+    return fetch(API_BASE_URL, {
+        method: "POST",
+        // text/plain avoids a CORS preflight for Apps Script web apps.
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify(payload),
+        redirect: "follow"
+    }).then(function (response) {
+        if (!response.ok) throw new Error("Server returned HTTP " + response.status);
+        return response.json();
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("ariseAdminLoginForm");
+    const passwordInput = document.getElementById("ariseAdminPassword");
+    const button = document.getElementById("ariseAdminLoginButton");
+    const errorBox = document.getElementById("ariseAdminLoginError");
+    if (!form) return;
+    passwordInput.focus();
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const password = passwordInput.value;
+        if (!password) return;
+        button.disabled = true;
+        button.textContent = "VERIFYING...";
+        errorBox.textContent = "";
+        try {
+            const result = await ariseAdminPost({ action: "adminLogin", password: password });
+            if (!result || !result.success || !result.token) {
+                throw new Error((result && result.message) || "Administrator login failed.");
+            }
+            ariseAdminToken = result.token;
+            passwordInput.value = "";
+            document.body.classList.add("arise-admin-authenticated");
+            document.getElementById("ariseAdminLogin").style.display = "none";
+            // Start the dashboard data refresh only after successful login.
+            if (typeof loadCampaign === "function") loadCampaign();
+        } catch (error) {
+            errorBox.textContent = error.message || "Unable to sign in. Please try again.";
+        } finally {
+            button.disabled = false;
+            button.textContent = "SIGN IN SECURELY";
+        }
+    });
+});
 
 
 const API_URL =
@@ -6017,6 +6053,71 @@ function viewMember(ariseCode) {
     }
 
 }
+async function generateMemberRecoveryCodeFromPortal() {
+
+    if (!currentMemberCode) {
+        alert("No member selected.");
+        return;
+    }
+
+    if (!ariseAdminToken) {
+        alert("Please sign in as an administrator first.");
+        return;
+    }
+
+    const confirmed = confirm(
+        "Generate a recovery code for " + currentMemberCode + "?\n\n" +
+        "Any existing recovery code for this member will be replaced.\n" +
+        "The new code expires in 10 minutes."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const button = document.querySelector(
+            'button[onclick="generateMemberRecoveryCodeFromPortal()"]'
+        );
+        const originalText = button ? button.textContent : "GENERATE RECOVERY CODE";
+
+        if (button) {
+            button.disabled = true;
+            button.textContent = "GENERATING...";
+        }
+
+        const data = await ariseAdminPost({
+            action: "generateMemberRecoveryCode",
+            code: currentMemberCode,
+            token: ariseAdminToken
+        });
+
+        if (!data || !data.success || !data.recoveryCode) {
+            throw new Error((data && data.message) || "Unable to generate recovery code.");
+        }
+
+        // Prompt provides a selectable field so the administrator can copy the code.
+        prompt(
+            "RECOVERY CODE GENERATED\n\n" +
+            "ARISE Code: " + (data.ariseCode || currentMemberCode) + "\n" +
+            "This code expires in 10 minutes. Share it privately with the member.\n\n" +
+            "Copy the recovery code below:",
+            data.recoveryCode
+        );
+
+    } catch (error) {
+        console.error("Generate Recovery Code Error:", error);
+        alert(error.message || "Unable to generate recovery code.");
+    } finally {
+        const button = document.querySelector(
+            'button[onclick="generateMemberRecoveryCodeFromPortal()"]'
+        );
+        if (button) {
+            button.disabled = false;
+            button.textContent = "GENERATE RECOVERY CODE";
+        }
+    }
+}
+
+
 async function resetMemberPassword() {
 
     if (!currentMemberCode) {
@@ -6044,29 +6145,16 @@ async function resetMemberPassword() {
 
     try {
 
-        const resetUrl =
-            API_BASE_URL +
-            "?action=resetMemberPassword" +
-            "&code=" +
-            encodeURIComponent(
-                currentMemberCode
-            );
+        if (!ariseAdminToken) {
+            alert("Please sign in as an administrator first.");
+            return;
+        }
 
-
-        console.log(
-            "Reset Password URL:",
-            resetUrl
-        );
-
-
-        const response =
-            await fetch(
-                resetUrl
-            );
-
-
-        const data =
-            await response.json();
+        const data = await ariseAdminPost({
+            action: "resetMemberPassword",
+            code: currentMemberCode,
+            token: ariseAdminToken
+        });
 
 
         console.log(
@@ -8335,7 +8423,9 @@ document.addEventListener(
 ========================================================= */
 
 setInterval(
-    loadCampaign,
+    function () {
+        if (document.body.classList.contains("arise-admin-authenticated")) loadCampaign();
+    },
     60000
 );
 
