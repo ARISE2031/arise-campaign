@@ -8407,6 +8407,44 @@ function printAriseReport() {
     }
 
     printWindow.document.write(`<!DOCTYPE html><html><head><title>ARISE 5-Year Pledge Report</title>
+
+    
+/* ARISE campaign statistics card layout */
+.statCard {
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 28px 16px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.statCard .number {
+    display: block;
+    max-width: 100%;
+    font-size: clamp(22px, 2.2vw, 40px);
+    line-height: 1.25;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    margin: 18px 0;
+}
+
+.statCard .small {
+    display: block;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+    .statCard {
+        padding: 24px 12px;
+    }
+
+    .statCard .number {
+        font-size: clamp(20px, 5vw, 30px);
+    }
+}
+
         <style>
             body{font-family:Arial,sans-serif;color:#111;padding:28px} .print\\:hidden{display:none!important}
             table{width:100%;border-collapse:collapse;margin-bottom:22px} th,td{border:1px solid #ccc;padding:8px;text-align:left}
