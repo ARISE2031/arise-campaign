@@ -833,6 +833,32 @@
 
         }
 
+        function formatCompactPeso(value) {
+            
+            const amount = Number(value) || 0;
+            
+            if (Math.abs(amount) >= 1000000) {
+                
+                return '₱' + (amount / 1000000).toFixed(2) + 'M';
+                
+                }
+                
+                if (Math.abs(amount) >= 1000) {
+                    
+                    return '₱' + (amount / 1000).toFixed(2) + 'K';
+                    
+                    }
+                    
+                    return '₱' + amount.toLocaleString('en-PH', {
+                        
+                        minimumFractionDigits: 2,
+                            
+                            maximumFractionDigits: 2
+                    
+                    });
+                
+                }
+
     </style>
 
 
